@@ -19,7 +19,7 @@ namespace Negocio
         }
         public AccesoDatos()
         {
-            conexion.ConnectionString = "Server=.\\SQLEXPRESS; Database=CATALOGO_WEB_DB ;integrate security=true";
+            conexion = new SqlConnection("Server=.\\SQLEXPRESS; Database=CATALOGO_WEB_DB ; integrated security=true");
             comando = new SqlCommand();
         }
 
