@@ -29,24 +29,64 @@
             </ItemTemplate>
         </asp:Repeater>
     </div>--%>
-    <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 g-4 mt-auto">
-        <asp:Repeater runat="server" ID="repRepetidor">
-            <ItemTemplate>
-                <div class="card-group">
-                    <div class="card">
-                        <img src="<%#Eval("Imagen")%>" class="card-img-top img-thumbnail" alt="imagen-<%#Eval("Nombre") %>" onerror="noImage(this)" />
-                        <div class="card-body">
-                            <p class="card-title"><%#Eval("Nombre") %></p>
-                            <h5 class="card-text">$ <%#Eval("Precio") %> </h5>
-                            <a href="#" class="btn btn-primary">Comprar</a>
-                            <a href="#">Ver más</a>
-                        </div>
-                        <%--<div class="card-footer">
-                            <small class="text-body-secondary">Last updated 3 mins ago</small>
-                        </div>--%>
-                    </div>
+    <div class="row">
+        <div class="col-3">
+            <h4>Filtros aplicados</h4>
+            <hr />
+            <div class="m-4">
+                <h4 class="">Marca</h4>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Samsung
+                    </label>
                 </div>
-            </ItemTemplate>
-        </asp:Repeater>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                    <label class="form-check-label" for="flexCheckChecked">
+                        Motorola
+                    </label>
+                </div>
+            </div>
+            <div class="m-4">
+                <h4 class="">Categoria</h4>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="categoria1">
+                    <label class="form-check-label" for="categoria1">
+                        Televisores
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="categoria2">
+                    <label class="form-check-label" for="categoria2">
+                        Celulares
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 g-4 mt-auto">
+                <asp:Repeater runat="server" ID="repRepetidor">
+                    <ItemTemplate>
+                        <div class="card-group">
+                            <div class="card">
+                                <img src="<%#Eval("Imagen")%>" class="card-img-top img-thumbnail" alt="imagen-<%#Eval("Nombre") %>" onerror="noImage(this)" />
+                                <div class="card-body">
+                                    <p class="card-title"><%#Eval("Nombre") %></p>
+                                    <h5 class="card-text">$ <%#Eval("Precio") %> </h5>
+                                    <a href="#" class="btn btn-primary">Comprar</a>
+                                    <a href="#">Ver más</a>
+                                </div>
+                                <%--<div class="card-footer">
+                                <small class="text-body-secondary">Last updated 3 mins ago</small>
+                            </div>--%>
+                            </div>
+                        </div>
+                    </ItemTemplate>
+                </asp:Repeater>
+            </div>
+        </div>
     </div>
 </asp:Content>
