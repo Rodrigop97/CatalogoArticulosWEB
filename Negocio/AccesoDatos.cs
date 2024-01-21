@@ -29,7 +29,7 @@ namespace Negocio
             comando.CommandText = consulta;
             
         }
-        public void establecerParametors(string parametro, object valor)
+        public void establecerParametros(string parametro, object valor)
         {
             comando.Parameters.AddWithValue(parametro, valor);
         }
