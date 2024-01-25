@@ -21,6 +21,7 @@ namespace Vista
                 Session.Add("listaArticulos", datosArticulos.listarArticulos());
                 repArticulos.DataSource = Session["listaArticulos"];
                 repArticulos.DataBind();
+                
 
                 cblMarca.DataSource = datosMarcas.listaMarcas();
                 cblMarca.DataBind();
@@ -30,6 +31,10 @@ namespace Vista
                 rblCategoria.DataSource = listaCategoria;
                 rblCategoria.DataBind();
                 ((RadioButtonList)rblCategoria).Items[0].Selected = true;
+            }
+            if (Request.QueryString["busqueda"] != null)
+            {
+                busquedaArticulo(Request.QueryString["busqueda"]);
             }
         }
         protected void ejecutarFiltros()
@@ -84,6 +89,16 @@ namespace Vista
 
             }
             ejecutarFiltros();
+        }
+        protected void busquedaArticulo(string busqueda)
+        {
+            List<Articulo> listaFiltrada = new List<Articulo>();
+            listaFiltrada = ((List<Articulo>)Session["listaArticulos"]).FindAll
+                (x => x.Nombre.ToUpper().Contains(busqueda.ToUpper()) ||
+                x.Marca.Descripcion.ToUpper().Contains(busqueda.ToUpper()) || 
+                x.Categoria.Descripcion.ToUpper().Contains(busqueda.ToUpper()));
+            repArticulos.DataSource = listaFiltrada;
+            repArticulos.DataBind();
         }
     }
 }

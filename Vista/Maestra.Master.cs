@@ -13,5 +13,14 @@ namespace Vista
         {
 
         }
+
+        protected void txbBusqueda_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txbBusqueda.Text))
+            {
+                Response.Redirect("Catalogo.aspx?busqueda=" + txbBusqueda.Text);
+                txbBusqueda.Text = "";
+            }
+        }
     }
 }

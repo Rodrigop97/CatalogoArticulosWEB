@@ -67,15 +67,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Articulo.aspx" />
     <Content Include="Catalogo.aspx" />
     <Content Include="Default.aspx" />
+    <Content Include="GestionArticulos.aspx" />
     <Content Include="Global.asax" />
-    <Content Include="img\icons\search.png.png" />
+    <Content Include="img\icons\search.png" />
     <Content Include="img\icons\technologyLogo.png" />
     <Content Include="img\utilities\noImage.jpg" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Articulo.aspx.cs">
+      <DependentUpon>Articulo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Articulo.aspx.designer.cs">
+      <DependentUpon>Articulo.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Catalogo.aspx.cs">
       <DependentUpon>Catalogo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -89,6 +98,13 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GestionArticulos.aspx.cs">
+      <DependentUpon>GestionArticulos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GestionArticulos.aspx.designer.cs">
+      <DependentUpon>GestionArticulos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -114,6 +130,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="img\user\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
