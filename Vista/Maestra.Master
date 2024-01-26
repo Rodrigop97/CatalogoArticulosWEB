@@ -23,7 +23,14 @@
                 <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="Default.aspx">Inicio</a>
+                            <%if (Session["usuario"] == null)
+                                { %>
+                            <a class="nav-link active" aria-current="page" href="Acceso.aspx">Inicio</a>
+                            <%}
+                                else
+                                { %>
+                            <a class="nav-link active" aria-current="page" href="Perfil.aspx">Mi perfil</a>
+                            <%} %>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="Catalogo.aspx">Catalogo</a>
