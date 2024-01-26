@@ -96,7 +96,7 @@
                             <div class="card-body">
                                 <p class="card-title"><%#Eval("Nombre") %></p>
                                 <h5 class="card-text">$ <%#Eval("Precio") %> </h5>
-                                <a class="btn btn-primary" href="producto.aspx?id=<%#Eval("Id")%>" >Ver mas </a>
+                                <a class="btn btn-primary" href="VistaDetalle.aspx?id=<%#Eval("Id")%>" >Ver mas </a>
                             </div>
                             <%--<div class="card-footer">
                                 <small class="text-body-secondary">Last updated 3 mins ago</small>

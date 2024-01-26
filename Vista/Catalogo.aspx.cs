@@ -20,8 +20,7 @@ namespace Vista
                 CategoriaNegocio datosCategorias = new CategoriaNegocio();
                 Session.Add("listaArticulos", datosArticulos.listarArticulos());
                 repArticulos.DataSource = Session["listaArticulos"];
-                repArticulos.DataBind();
-                
+                repArticulos.DataBind();               
 
                 cblMarca.DataSource = datosMarcas.listaMarcas();
                 cblMarca.DataBind();

@@ -11,7 +11,7 @@ namespace Vista
 {
 
 
-    public partial class Articulo
+    public partial class VistaDetalle
     {
     }
 }
