@@ -13,30 +13,23 @@
     </div>
     <div class="row mx-2">
         <%--    Datos del usuario   --%>
-        <div class="col-6">
-            <div class="row mb-3">
+        <div class="col-5">
+            <div class="row m-4">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
                 <div class="col-sm-10">
-                    <asp:TextBox runat="server" type="email" class="form-control" ID="txbEmail" />
+                    <asp:TextBox runat="server" type="email" class="form-control" ID="txbEmail" ReadOnly="true"  />
                 </div>
             </div>
-            <div class="row mb-3">
-                <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
-                <div class="col-sm-10">
-                    <a href="#">Cambiar contraseña</a>
-                    <%--<asp:TextBox runat="server" type="password" class="form-control" ReadOnly="true" ID="txbContraseña" />--%>
-                </div>
-            </div>
-            <div class="row mb-4">
-                <div class="col">
+            
+                <div class="row mb-4">
                     <asp:TextBox runat="server" type="text" class="form-control" placeholder="Nombre" id="txbNombre" />
                 </div>
-                <div class="col">
+                <div class="row mb-4">
                     <asp:TextBox runat="server" type="text" class="form-control" placeholder="Apellido" aria-label="Last name" ID="txbApellido"/>
                 </div>
-            </div>
-            <button type="submit" class="btn btn-primary">Guardar</button>
+            <asp:Button Text="Guardar" runat="server" class="btn btn-primary" OnClick="Guardar_Click"/>
         </div>
+        <div class="col"></div>
         <%--    ARTICULOS FAVORITOS --%>
         <div class="col-6">
             <%--style="min-height:60vh; max-height:60vh">--%>

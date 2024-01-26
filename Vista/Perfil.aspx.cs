@@ -75,7 +75,19 @@ namespace Vista
 
         protected void Guardar_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+                
+                ((Usuario)Session["usuario"]).Nombre = txbNombre.Text;
+                ((Usuario)Session["usuario"]).Apellido = txbApellido.Text;
+                //((Usuario)Session["usuario"]).Imagen = txbImagen.Text;
+                usuarioNegocio.actualizarDatos((Usuario)Session["usuario"]);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }
