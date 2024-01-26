@@ -17,24 +17,25 @@
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
                 <div class="col-sm-10">
-                    <input type="email" class="form-control" id="inputEmail3">
+                    <asp:TextBox runat="server" type="email" class="form-control" ID="txbEmail" />
                 </div>
             </div>
             <div class="row mb-3">
                 <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
                 <div class="col-sm-10">
-                    <input type="password" class="form-control" id="inputPassword3">
+                    <a href="#">Cambiar contraseña</a>
+                    <%--<asp:TextBox runat="server" type="password" class="form-control" ReadOnly="true" ID="txbContraseña" />--%>
                 </div>
             </div>
             <div class="row mb-4">
                 <div class="col">
-                    <input type="text" class="form-control" placeholder="First name" aria-label="First name">
+                    <asp:TextBox runat="server" type="text" class="form-control" placeholder="Nombre" id="txbNombre" />
                 </div>
                 <div class="col">
-                    <input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
+                    <asp:TextBox runat="server" type="text" class="form-control" placeholder="Apellido" aria-label="Last name" ID="txbApellido"/>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Sign in</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
         </div>
         <%--    ARTICULOS FAVORITOS --%>
         <div class="col-6">

@@ -81,10 +81,16 @@ namespace Negocio
                 {
                     return false;
                 }
+                datos.cerrarConexion();
                 // SI NO EXISTE EL EMAIL CARGAMOS NUEVO EMAIL Y CONTRASEÑA
-                datos.establecerConsulta("insert into USERS (email,pass) values (@email,@pass)");
-                datos.establecerParametros("@email",nuevo.Email);
+                datos.establecerConsulta("insert into USERS (email,pass,nombre,apellido) values (@email,@pass,@nombre,@apellido)");
+                //datos.establecerParametros("@email",nuevo.Email);
                 datos.establecerParametros("@pass", nuevo.Contraseña);
+                // dos maneras de evaluar si es null y enviar a la BD el valor que corresponda
+                    // 1-
+                datos.establecerParametros("@nombre", (object)nuevo.Nombre == DBNull.Value);
+                    // 2-
+                datos.establecerParametros("@apellido", nuevo.Apellido != null ? nuevo.Apellido : (object)DBNull.Value);
                 datos.ejecutarAccion();
                 return true;
             }

@@ -13,7 +13,6 @@ namespace Vista
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            btnAcceso.Text = "Inicar sesion";
 
         }
 
@@ -23,6 +22,8 @@ namespace Vista
             Usuario usuario = new Usuario();
             usuario.Email = txbEmail.Text;
             usuario.Contraseña = txbContraseña.Text;
+            usuario.Nombre = txbNombre != null ? txbNombre.Text : null ;
+            usuario.Apellido = txbApellido != null ? txbApellido.Text : null;
             //try
             //{
 
@@ -31,9 +32,15 @@ namespace Vista
             //{
             //    throw;
             //}
-            if (usuarioNegocio.login(usuario))
+            if (Request.QueryString["signin"] == null && usuarioNegocio.login(usuario))
             {
                 Session.Add("Usuario",usuario);
+                Response.Redirect("Catalogo.aspx");
+            }
+            else if (Request.QueryString["signin"] != null && usuarioNegocio.signin(usuario))
+            {
+                Session.Remove("signin");
+                Session.Add("Usuario", usuario);
                 Response.Redirect("Catalogo.aspx");
             }
             else

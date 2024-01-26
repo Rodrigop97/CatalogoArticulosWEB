@@ -26,15 +26,32 @@
                         <label for="txbContraseña" class="form-label">Contraseña</label>
                         <asp:TextBox runat="server" ID="txbContraseña" type="password" class="form-control" />
                     </div>
+                    <% if (Request.QueryString["signin"] == null)
+                        {
+                    %>
+                    <asp:Button runat="server" Text="Iniciar sesion" CssClass="btn btn-primary" OnClick="btnAcceso_Click" />
+                    <a href="Acceso.aspx?signin=true">Registrarse</a>
+                    <%}
+                        else
+                        {  %>
+                    <div class="mb-3">
+                        <label for="txbNombre" class="form-label">Nombre (opcional)</label>
+                        <asp:TextBox runat="server" type="text" ID="txbNombre" class="form-control"/>
+                    </div>
+                    <div class="mb-3">
+                        <label for="txbApellido" class="form-label">Apellido (opcional)</label>
+                        <asp:TextBox runat="server" type="text" ID="txbApellido" class="form-control" />
+                    </div>
                     <div class="mb-3 form-check">
                         <asp:CheckBox ID="cbxAdmin" runat="server" />
                         <label class="form-check-label" for="cbxAdmin">Solicitar rol admin</label>
                     </div>
-                    <asp:Button runat="server" ID="btnAcceso" CssClass="btn btn-primary" OnClick="btnAcceso_Click" />
+                    <asp:Button runat="server" Text="Registrarse" CssClass="btn btn-primary" OnClick="btnAcceso_Click" />
                     <a href="Catalogo.aspx">Cancelar</a>
+                    <%} %>
                 </div>
             </div>
-            </div>
+        </div>
     </form>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

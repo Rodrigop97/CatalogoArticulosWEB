@@ -35,7 +35,10 @@ namespace Vista
                     //rblCategoria.DataBind();
                     //((RadioButtonList)rblCategoria).Items[0].Selected = true;
                     Usuario user = (Usuario)Session["usuario"];
-
+                    txbEmail.Text = user.Email;
+                    //txbContraseña.Text = user.Contraseña;
+                    txbNombre.Text = user.Nombre != null ? user.Nombre : "";
+                    txbApellido.Text = user.Apellido != null ? user.Apellido : "";
                     h1Bienvenida.InnerText = user.Nombre != null ? "Bienvenido " + user.Nombre + "!" : "Bienvenido " + user.Email.Split('@')[0];
                 }
                 catch (Exception ex)
