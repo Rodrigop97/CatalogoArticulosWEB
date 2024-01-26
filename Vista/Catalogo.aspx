@@ -28,7 +28,7 @@
             </ItemTemplate>
         </asp:Repeater>
     </div>--%>
-    <div class="row">
+    <div class="row my-4">
         <%--    FILTROS   --%>
         <div class="col-3 mt-3">
             <div class="sticky-top" style="top:70px">

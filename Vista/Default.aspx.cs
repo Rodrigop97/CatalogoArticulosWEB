@@ -45,6 +45,7 @@ namespace Vista
 
         protected void iniciarSesion_Click(object sender, EventArgs e)
         {
+            
             UsuarioNegocio datosUsuario = new UsuarioNegocio();
             Usuario user = new Usuario();
             //user.Email = txbEmail.Text;
