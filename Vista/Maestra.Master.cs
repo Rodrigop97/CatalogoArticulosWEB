@@ -19,7 +19,7 @@ namespace Vista
                 aInicio.Attributes["class"] = "nav-link active";
             if (Request.Url.ToString().Contains("Catalogo"))
                 aCatalogo.Attributes["class"] = "nav-link active";
-            if (Request.Url.ToString().Contains("Inicio"))
+            if (Request.Url.ToString().Contains("Perfil"))
                 aPerfil.Attributes["class"] = "nav-link active";
         }
 

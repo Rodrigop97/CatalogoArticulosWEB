@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Inicio" Language="C#" MasterPageFile="~/Maestra.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Vista.Default" %>
+﻿<%@ Page Title="Inicio" Language="C#" MasterPageFile="~/Maestra.Master" AutoEventWireup="true" CodeBehind="Perfil.aspx.cs" Inherits="Vista.Default" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script>    

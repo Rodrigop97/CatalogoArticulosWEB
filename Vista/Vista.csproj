@@ -69,7 +69,7 @@
   <ItemGroup>
     <Content Include="Acceso.aspx" />
     <Content Include="Catalogo.aspx" />
-    <Content Include="Default.aspx" />
+    <Content Include="Perfil.aspx" />
     <Content Include="GestionArticulos.aspx" />
     <Content Include="Global.asax" />
     <Content Include="img\icons\search.png" />
@@ -94,12 +94,12 @@
     <Compile Include="Catalogo.aspx.designer.cs">
       <DependentUpon>Catalogo.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="Perfil.aspx.cs">
+      <DependentUpon>Perfil.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="Perfil.aspx.designer.cs">
+      <DependentUpon>Perfil.aspx</DependentUpon>
     </Compile>
     <Compile Include="GestionArticulos.aspx.cs">
       <DependentUpon>GestionArticulos.aspx</DependentUpon>
