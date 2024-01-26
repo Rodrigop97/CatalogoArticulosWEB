@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,7 +38,58 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+        public bool validarNuevoUsuario(string email)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.establecerConsulta("Select email from USERS where email = @email");
+                datos.establecerParametros("@email", email);
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+        public bool signin(Usuario nuevo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                // VERIFICAMOS QUE NO EXISTA EL EMAIL
+                datos.establecerConsulta("Select email from USERS where email = @email");
+                datos.establecerParametros("@email", nuevo.Email);
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    return false;
+                }
+                // SI NO EXISTE EL EMAIL CARGAMOS NUEVO EMAIL Y CONTRASEÑA
+                datos.establecerConsulta("insert into USERS (email,pass) values (@email,@pass)");
+                datos.establecerParametros("@email",nuevo.Email);
+                datos.establecerParametros("@pass", nuevo.Contraseña);
+                datos.ejecutarAccion();
+                return true;
+            }
+            catch (Exception ex)
+            {
                 throw ex;
             }
             finally

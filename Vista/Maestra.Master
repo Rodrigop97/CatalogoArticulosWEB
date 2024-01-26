@@ -25,15 +25,19 @@
                         <li class="nav-item">
                             <%if (Session["usuario"] == null)
                                 { %>
-                            <a class="nav-link active" aria-current="page" href="Acceso.aspx">Inicio</a>
+                            <a class="nav-link" aria-current="page" href="Acceso.aspx" runat="server" id="aInicio">Inicio</a>
                             <%}
                                 else
                                 { %>
-                            <a class="nav-link active" aria-current="page" href="Perfil.aspx">Mi perfil</a>
+                            <a class="nav-link" runat="server" id="aPerfil" aria-current="page" href="Perfil.aspx">
+                                <img src="<%:((Dominio.Usuario)Session["usuario"]).Imagen %>" alt="Imagen de usuario" onerror="noUserImage(this)" 
+                                    style="width:25px" />
+                                Mi perfil
+                            </a>
                             <%} %>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="Catalogo.aspx">Catalogo</a>
+                            <a class="nav-link" runat="server" id="aCatalogo" href="Catalogo.aspx">Catalogo</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Contacto</a>
@@ -73,5 +77,10 @@
         </footer>
     </form>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script>
+        function noUserImage(img) {
+            img.src = "img/icons/user.png";
+        }
+    </script>
 </body>
 </html>

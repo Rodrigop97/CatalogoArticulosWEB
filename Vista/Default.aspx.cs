@@ -25,7 +25,7 @@ namespace Vista
                     Session.Add("listaArticulos", datosArticulos.listarArticulos());
                     repArticulos.DataSource = Session["listaArticulos"];
                     repArticulos.DataBind();
-                
+
                     //cblMarca.DataSource = datosMarcas.listaMarcas();
                     //cblMarca.DataBind();
 
@@ -34,6 +34,9 @@ namespace Vista
                     //rblCategoria.DataSource = listaCategoria;
                     //rblCategoria.DataBind();
                     //((RadioButtonList)rblCategoria).Items[0].Selected = true;
+                    Usuario user = (Usuario)Session["usuario"];
+
+                    h1Bienvenida.InnerText = user.Nombre != null ? "Bienvenido " + user.Nombre + "!" : "Bienvenido " + user.Email.Split('@')[0];
                 }
                 catch (Exception ex)
                 {
@@ -65,6 +68,11 @@ namespace Vista
             {
                 throw ex;
             }
+        }
+
+        protected void Guardar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

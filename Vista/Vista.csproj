@@ -74,6 +74,7 @@
     <Content Include="Global.asax" />
     <Content Include="img\icons\search.png" />
     <Content Include="img\icons\technologyLogo.png" />
+    <Content Include="img\icons\user.png" />
     <Content Include="img\utilities\noImage.jpg" />
     <Content Include="VistaDetalle.aspx" />
     <Content Include="Web.config" />
