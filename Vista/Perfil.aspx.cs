@@ -22,8 +22,19 @@ namespace Vista
                     ArticuloNegocio datosArticulos = new ArticuloNegocio();
                     MarcaNegocio datosMarcas = new MarcaNegocio();
                     CategoriaNegocio datosCategorias = new CategoriaNegocio();
-                    Session.Add("listaArticulos", datosArticulos.listarArticulos());
-                    repArticulos.DataSource = Session["listaArticulos"];
+                    Usuario user = (Usuario)Session["usuario"];
+
+                    //Session.Add("listaArticulos", datosArticulos.listarArticulos());
+
+                    //List<Articulo> favoritos = new List<Articulo>();
+                    //foreach (var item in (List<Articulo>)Session["listaArticulos"])
+                    //    foreach (int i in datosArticulos.listarArticulosFavoritos(user.Id))
+                    //        if (item.Id == i)
+                    //            favoritos.Add(item);
+                    List<Articulo> favoritos = ((List<Articulo>)Session["listaArticulos"])
+                    .Where(item => datosArticulos.listarArticulosFavoritos(user.Id).Contains(item.Id))
+                    .ToList();
+                    repArticulos.DataSource = favoritos;
                     repArticulos.DataBind();
 
                     //cblMarca.DataSource = datosMarcas.listaMarcas();
@@ -34,7 +45,6 @@ namespace Vista
                     //rblCategoria.DataSource = listaCategoria;
                     //rblCategoria.DataBind();
                     //((RadioButtonList)rblCategoria).Items[0].Selected = true;
-                    Usuario user = (Usuario)Session["usuario"];
                     txbEmail.Text = user.Email;
                     //txbContraseña.Text = user.Contraseña;
                     txbNombre.Text = user.Nombre != null ? user.Nombre : "";

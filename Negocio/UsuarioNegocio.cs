@@ -108,7 +108,7 @@ namespace Negocio
             AccesoDatos datosUsuario = new AccesoDatos();
             try
             {
-                datosUsuario.establecerConsulta("update USERS set nombre = @nombre , apellido = @apellido, urlImagenPerfil = @imagen where id = @id");
+                datosUsuario.establecerConsulta("update USERS set nombre = @nombre , apellido = @apellido, urlImagenPerfil = @imagen where Id = @id");
                 datosUsuario.establecerParametros("@id", user.Id);
                 datosUsuario.establecerParametros("@nombre", (object)user.Nombre ?? DBNull.Value);
                 datosUsuario.establecerParametros("@apellido", (object)user.Apellido ?? DBNull.Value);

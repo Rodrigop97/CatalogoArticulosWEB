@@ -52,5 +52,30 @@ namespace Negocio
 
         }
 
+        public List<int> listarArticulosFavoritos(int idUser)
+        {
+            List<int> listaIdArticulos = new List<int>();
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.establecerConsulta("select IdArticulo from FAVORITOS where IdUser = @idUser");
+                datos.establecerParametros("@idUser", idUser);
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    listaIdArticulos.Add((int)datos.Lector["IdArticulo"]);
+                }
+                return listaIdArticulos;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }
