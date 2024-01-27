@@ -92,7 +92,7 @@
                 <ItemTemplate>
                     <div class="card-group viaje">
                         <div class="card">
-                            <img src="<%#Eval("Imagen")%>" class="card-img-top img-thumbnail" alt="imagen-<%#Eval("Nombre") %>" onerror="noImage(this)" />
+                            <img src="<%#Eval("Imagen")%>" class="card-img-top img-thumbnail object-fit-contain" alt="imagen-<%#Eval("Nombre") %>" onerror="noImage(this)" style="max-height:250px" />
                             <div class="card-body">
                                 <p class="card-title"><%#Eval("Nombre") %></p>
                                 <h5 class="card-text">$ <%#Eval("Precio") %> </h5>

@@ -13,14 +13,21 @@ namespace Vista
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Se supone que solo se accede con un id de articulo, sino, hay que cambiar el "try catch"
-            if(Request.QueryString["Id"] != null)
+            if (Request.QueryString["id"] != null)
             {
-                Articulo seleccionado = ((List<Articulo>)Session["listaArticulos"]).Find(x => x.Id == int.Parse(Request.QueryString["Id"]));
+                ArticuloNegocio articuloNegocio = new ArticuloNegocio();
+                if (Session["listaArticulos"] == null)
+                    Session.Add("listaArticulos", articuloNegocio.listarArticulos());
+                // Se supone que solo se accede con un id de articulo, sino, hay que cambiar el "try catch"
+                Articulo seleccionado = ((List<Articulo>)Session["listaArticulos"]).Find(x => x.Id == int.Parse(Request.QueryString["id"]));
                 txtNombre.InnerText = seleccionado.Nombre;
                 txtDescripcion.InnerText = seleccionado.Descripcion;
                 txtPrecio.InnerText = "$ " + seleccionado.Precio.ToString();
                 imgArticulo.Src = seleccionado.Imagen;
+            }
+            else
+            {
+                Response.Redirect("Catalogo.aspx");
             }
         }
     }

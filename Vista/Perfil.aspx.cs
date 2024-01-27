@@ -1,5 +1,4 @@
-﻿using Dominio;
-using Negocio;
+﻿using Negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +18,7 @@ namespace Vista
             {
                 try
                 {
-                    ArticuloNegocio datosArticulos = new ArticuloNegocio();
+                    FavoritosNegocio favoritosArticulos = new FavoritosNegocio();
                     MarcaNegocio datosMarcas = new MarcaNegocio();
                     CategoriaNegocio datosCategorias = new CategoriaNegocio();
                     Usuario user = (Usuario)Session["usuario"];
@@ -32,7 +31,7 @@ namespace Vista
                     //        if (item.Id == i)
                     //            favoritos.Add(item);
                     List<Articulo> favoritos = ((List<Articulo>)Session["listaArticulos"])
-                    .Where(item => datosArticulos.listarArticulosFavoritos(user.Id).Contains(item.Id))
+                    .Where(item => favoritosArticulos.listarArticulosFavoritos(user.Id).Contains(item.Id))
                     .ToList();
                     repArticulos.DataSource = favoritos;
                     repArticulos.DataBind();
@@ -53,7 +52,6 @@ namespace Vista
                 }
                 catch (Exception ex)
                 {
-
                     throw ex;
                 }
             }
@@ -88,7 +86,6 @@ namespace Vista
             try
             {
                 UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
-                
                 ((Usuario)Session["usuario"]).Nombre = txbNombre.Text;
                 ((Usuario)Session["usuario"]).Apellido = txbApellido.Text;
                 //((Usuario)Session["usuario"]).Imagen = txbImagen.Text;
