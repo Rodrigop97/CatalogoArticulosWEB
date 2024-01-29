@@ -74,8 +74,16 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.establecerConsulta("");
-                datos.establecerParametros("", articulo.Nombre);
+                //Consulta completa datos.establecerConsulta("update ARTICULOS set Codigo = @codigo, Nombre = @nombre, Descripcion = @desc, IdMarca = @idMarca, IdCategoria = @idCategoria, ImagenUrl = @img, Precio = @precio");
+                datos.establecerConsulta("update ARTICULOS set Nombre = @nombre, Descripcion = @desc, IdMarca = @idMarca, IdCategoria = @idCategoria, Precio = @precio where Id = @id");
+                datos.establecerParametros("@id", articulo.Id);
+                datos.establecerParametros("@codigo", (object)articulo.Codigo ?? DBNull.Value);
+                datos.establecerParametros("@nombre", (object)articulo.Nombre ?? DBNull.Value);
+                datos.establecerParametros("@desc", (object)articulo.Descripcion ?? DBNull.Value);
+                datos.establecerParametros("@idMarca", (object)articulo.Marca.Id ?? DBNull.Value);
+                datos.establecerParametros("@idCategoria", (object)articulo.Categoria.Id ?? DBNull.Value);
+                datos.establecerParametros("@img", (object)articulo.Imagen ?? DBNull.Value);
+                datos.establecerParametros("@precio", (object)articulo.Precio ?? DBNull.Value);
                 datos.ejecutarAccion();
             }
             catch (Exception ex )
