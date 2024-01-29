@@ -1,11 +1,6 @@
 ﻿<%@ Page Title="Catalogo" Language="C#" MasterPageFile="~/Maestra.Master" AutoEventWireup="true" CodeBehind="Catalogo.aspx.cs" Inherits="Vista.Catalogo" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <script>
-        function noImage(img) {
-            img.src = "img/utilities/noImage.jpg";
-        }
-    </script>
     <style>
         .viaje:hover{transform: scale(1.02); }
     </style>

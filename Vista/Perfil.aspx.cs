@@ -90,6 +90,7 @@ namespace Vista
                 ((Usuario)Session["usuario"]).Apellido = txbApellido.Text;
                 //((Usuario)Session["usuario"]).Imagen = txbImagen.Text;
                 usuarioNegocio.actualizarDatos((Usuario)Session["usuario"]);
+                h1Bienvenida.InnerText = ((Usuario)Session["usuario"]).Nombre != null ? "Bienvenido " + ((Usuario)Session["usuario"]).Nombre + "!" : "Bienvenido " + ((Usuario)Session["usuario"]).Email.Split('@')[0];
             }
             catch (Exception ex)
             {

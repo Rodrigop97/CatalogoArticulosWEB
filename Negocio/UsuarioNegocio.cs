@@ -45,29 +45,6 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
-        public bool validarNuevoUsuario(string email)
-        {
-            AccesoDatos datos = new AccesoDatos();
-            try
-            {
-                datos.establecerConsulta("Select email from USERS where email = @email");
-                datos.establecerParametros("@email", email);
-                datos.ejecutarLectura();
-                while (datos.Lector.Read())
-                {
-                    return false;
-                }
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-        }
         public bool signin(Usuario nuevo)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -92,6 +69,29 @@ namespace Negocio
                     // 2-
                 datos.establecerParametros("@apellido", nuevo.Apellido != null ? nuevo.Apellido : (object)DBNull.Value);
                 datos.ejecutarAccion();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+        public bool validarNuevoUsuario(string email)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.establecerConsulta("Select email from USERS where email = @email");
+                datos.establecerParametros("@email", email);
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    return false;
+                }
                 return true;
             }
             catch (Exception ex)

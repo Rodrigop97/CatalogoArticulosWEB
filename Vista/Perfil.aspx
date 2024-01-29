@@ -9,6 +9,7 @@
     <div class="row mx-2">
         <%--    Datos del usuario   --%>
         <div class="col-5">
+            <h2 class="m-3">Datos personales</h2>
             <div class="row m-4">
                 <label for="txbEmail" class="col-sm-2 col-form-label">Email</label>
                 <div class="col-sm-10">
@@ -43,7 +44,8 @@
                     <asp:Repeater runat="server" ID="repArticulos">
                         <ItemTemplate>
                             <div class="carousel-item text-center" style="background-color: white; justify-items: center; text-align: center;">
-                                <img src="<%#Eval("Imagen") %>" style="" class="img-fluid object-fit-contain" alt="Contenido no encontrado">
+                                <label style="display:block"><%#Eval("Nombre") %></label>
+                                <img src="<%#Eval("Imagen") %>" style="" title="<%#Eval("Nombre") %>"   onerror="noImage(this)" class="img-fluid object-fit-contain" alt="Imagen <%#Eval("Nombre") %>">
                             </div>
                         </ItemTemplate>
                     </asp:Repeater>

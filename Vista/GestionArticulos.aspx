@@ -10,7 +10,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <div class="container-fluid">
+        <div class="container">
             <hr />
             <div class="row">
                 <div class="col-4">
@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="col">
                     <asp:GridView runat="server" ID="gvArticulos" CssClass="table" AutoGenerateColumns="false" AllowPaging="true"
-                        OnSelectedIndexChanged="gvArticulos_SelectedIndexChanged" OnRowDeleting="gvArticulos_RowDeleting">
+                        OnSelectedIndexChanged="gvArticulos_SelectedIndexChanged" PageSize="8" OnRowDeleting="gvArticulos_RowDeleting">
                         <Columns>
                             <asp:BoundField DataField="Id" Visible="false" />
                             <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
@@ -35,6 +35,9 @@
                 </div>
             </div>
             <div class="row">
+                <div class="d-flex justify-content-end">
+                    <asp:Button Text="Salir" runat="server" CssClass="btn btn-danger" OnClick="salir_Click" />
+                </div>
             </div>
             <div class="row">
             </div>

@@ -20,15 +20,43 @@ namespace Vista
                     Session.Add("listaArticulos", articuloNegocio.listarArticulos());
                 // Se supone que solo se accede con un id de articulo, sino, hay que cambiar el "try catch"
                 Articulo seleccionado = ((List<Articulo>)Session["listaArticulos"]).Find(x => x.Id == int.Parse(Request.QueryString["id"]));
-                txtNombre.InnerText = seleccionado.Nombre;
-                txtDescripcion.InnerText = seleccionado.Descripcion;
-                txtPrecio.InnerText = "$ " + seleccionado.Precio.ToString();
+                if (((Usuario)Session["usuario"]).Admin)
+                {
+                    CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
+                    MarcaNegocio marcaNegocio = new MarcaNegocio();
+                    ddlMarca.DataSource = marcaNegocio.listaMarcas();
+                    ddlMarca.DataBind();
+                    ddlCategoria.DataSource = categoriaNegocio.listaCategoria();
+                    ddlCategoria.DataBind();
+
+                    txbNombre.Text = seleccionado.Nombre;
+                    txbDescripcion.Text = seleccionado.Descripcion;
+                    txbPrecio.Text = seleccionado.Precio.ToString();
+                    ddlCategoria.SelectedValue = seleccionado.Categoria.Descripcion;
+                    ddlMarca.SelectedValue = seleccionado.Marca.Descripcion;
+                }
+                else
+                {
+                    txtNombre.InnerText = seleccionado.Nombre;
+                    txtDescripcion.InnerText = seleccionado.Descripcion;
+                    txtPrecio.InnerText = "$ " + seleccionado.Precio.ToString();
+                }
                 imgArticulo.Src = seleccionado.Imagen;
             }
             else
             {
                 Response.Redirect("Catalogo.aspx");
             }
+        }
+
+        protected void guardar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void favoritos_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

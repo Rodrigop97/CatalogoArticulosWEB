@@ -42,5 +42,10 @@ namespace Vista
             ArticuloNegocio articuloNegocio = new ArticuloNegocio();
             articuloNegocio.eliminarArticulo(id);
         }
+
+        protected void salir_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Catalogo.aspx");
+        }
     }
 }

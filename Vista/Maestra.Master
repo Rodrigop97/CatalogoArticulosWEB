@@ -37,6 +37,11 @@
 
                                 <ul class="dropdown-menu">
                                     <li><a class="btn" href="Perfil.aspx">Mi perfil</a></li>
+                                    <%if (((Dominio.Usuario)Session["usuario"]).Admin)
+                                        {
+                                       %>
+                                    <li><a class="btn text-nowrap" href="GestionArticulos.aspx">Gestion de articulos</a></li>
+                                    <%} %>
                                     <li>
                                         <asp:Button Text="Cerrar sesion" CssClass="btn" runat="server" OnClick="cerrarSesion_Click" />
                                     </li>
@@ -94,6 +99,9 @@
     <script>
         function noUserImage(img) {
             img.src = "img/icons/user.png";
+        }
+        function noImage(img) {
+            img.src = "img/utilities/noImage.jpg";
         }
     </script>
 </body>
