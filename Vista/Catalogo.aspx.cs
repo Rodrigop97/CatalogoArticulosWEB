@@ -6,6 +6,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dominio;
 using Negocio;
+using Helpers;
+using System.Web.DynamicData;
+
 
 namespace Vista
 {
@@ -36,36 +39,8 @@ namespace Vista
                 busquedaArticulo(Request.QueryString["busqueda"]);
             }
         }
-        protected void ejecutarFiltros()
-        {
-            List<Articulo> listaFiltrada;
-
-            if (Session["filtroCategoria"] != null)
-                listaFiltrada = ((List<Articulo>)Session["listaArticulos"]).FindAll(x => x.Categoria.Descripcion == (string)Session["filtroCategoria"]);
-            else
-                listaFiltrada = (List<Articulo>)Session["listaArticulos"];
-            if (Session["filtroMarca"] != null)
-            {
-                List<Articulo> aux = new List<Articulo>();
-                foreach (string item in (List<string>)Session["filtroMarca"])
-                    aux = aux.Concat(listaFiltrada.FindAll(x => x.Marca.Descripcion == item)).ToList();
-                listaFiltrada = aux;
-            }
-            if (!string.IsNullOrEmpty(precioMax.Text))
-                listaFiltrada = listaFiltrada.FindAll(x => x.Precio < decimal.Parse(precioMax.Text));
-            if (!string.IsNullOrEmpty(precioMin.Text))
-                listaFiltrada = listaFiltrada.FindAll(x => x.Precio > decimal.Parse(precioMin.Text));
-            repArticulos.DataSource = listaFiltrada;
-            repArticulos.DataBind();
-        }
-
-        protected void rango_Click(object sender, EventArgs e)
-        {
-            ejecutarFiltros();
-        }
-
         protected void rblCategoria_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        { // guarda la categoria seleccionada en sesion para enviar al filtro general
             if (((RadioButtonList)sender).SelectedItem.Text == "Todos")
                 Session.Remove("filtroCategoria");
             else
@@ -74,7 +49,7 @@ namespace Vista
         }
 
         protected void cblMarca_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        { // Guarda la o las marcas seleccionadas en sesion para enviar al filtro general
             if (((CheckBoxList)sender).SelectedIndex == -1)
                 Session.Remove("filtroMarca");
             else
@@ -85,19 +60,49 @@ namespace Vista
                     {
                         ((List<string>)Session["filtroMarca"]).Add(item.Text);
                     }
-
             }
             ejecutarFiltros();
         }
-        protected void busquedaArticulo(string busqueda)
+        protected void precio_Click(object sender, EventArgs e)
         {
-            List<Articulo> listaFiltrada = new List<Articulo>();
-            listaFiltrada = ((List<Articulo>)Session["listaArticulos"]).FindAll
-                (x => x.Nombre.ToUpper().Contains(busqueda.ToUpper()) ||
-                x.Marca.Descripcion.ToUpper().Contains(busqueda.ToUpper()) || 
-                x.Categoria.Descripcion.ToUpper().Contains(busqueda.ToUpper()));
-            repArticulos.DataSource = listaFiltrada;
+            Session.Add("precioMax", precioMax.Text);
+            Session.Add("precioMin", precioMin.Text);
+            ejecutarFiltros();
+        }
+        protected void ejecutarFiltros()
+        {
+            //List<Articulo> listaFiltrada;
+
+            //if (Session["filtroCategoria"] != null)
+            //    listaFiltrada = ((List<Articulo>)Session["listaArticulos"]).FindAll(x => x.Categoria.Descripcion == (string)Session["filtroCategoria"]);
+            //else
+            //    listaFiltrada = (List<Articulo>)Session["listaArticulos"];
+            //if (Session["filtroMarca"] != null)
+            //{
+            //    List<Articulo> aux = new List<Articulo>();
+            //    foreach (string item in (List<string>)Session["filtroMarca"])
+            //        aux = aux.Concat(listaFiltrada.FindAll(x => x.Marca.Descripcion == item)).ToList();
+            //    listaFiltrada = aux;
+            //}
+            //if (!string.IsNullOrEmpty(precioMax.Text))
+            //    listaFiltrada = listaFiltrada.FindAll(x => x.Precio < decimal.Parse(precioMax.Text));
+            //if (!string.IsNullOrEmpty(precioMin.Text))
+            //    listaFiltrada = listaFiltrada.FindAll(x => x.Precio > decimal.Parse(precioMin.Text));
+            repArticulos.DataSource = Filtro.filtroAvanzado
+                (
+                (List<Articulo>)Session["listaArticulos"],
+                (string)Session["filtroCategoria"],
+                (List<string>)Session["filtroMarca"],
+                (string)Session["precioMax"],
+                (string)Session["precioMin"]
+                );
             repArticulos.DataBind();
         }
+        protected void busquedaArticulo(string busqueda)
+        {
+            repArticulos.DataSource = Filtro.busquedaRapida((List<Articulo>)Session["listaArticulos"], busqueda);
+            repArticulos.DataBind();
+        }
+
     }
 }

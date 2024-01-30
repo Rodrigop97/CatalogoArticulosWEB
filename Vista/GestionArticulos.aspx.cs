@@ -1,4 +1,5 @@
 ﻿using Dominio;
+using Helpers;
 using Negocio;
 using System;
 using System.Collections.Generic;
@@ -13,12 +14,36 @@ namespace Vista
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            // PRUEBA DE PAGINA --------------------------->
+            Usuario adimn = new Usuario();
+            adimn.Nombre = "Rodrigo";
+            adimn.Apellido = "Peralta";
+            adimn.Email = "ad@ad.com";
+            adimn.Contraseña = "1234";
+            adimn.Admin = true;
+            Session.Add("usuario", adimn);
+            //----------------------------------------------------------- > 
             try
             {
                 ArticuloNegocio datosArticulo = new ArticuloNegocio();
-                Session.Add("listaArticulos", datosArticulo.listarArticulos());
+                CategoriaNegocio datosCategoria = new CategoriaNegocio();
+                MarcaNegocio datosMarca = new MarcaNegocio();
+
+                if (Session["listaArticulos"] == null)
+                    Session.Add("listaArticulos", datosArticulo.listarArticulos());
                 gvArticulos.DataSource = Session["listaArticulos"];
                 gvArticulos.DataBind();
+
+                ddlCategoria.DataSource = datosCategoria.listaCategoria();
+                ddlCategoria.DataValueField = "Id";
+                ddlCategoria.DataTextField = "Descripcion";
+                ddlCategoria.DataBind();
+                ddlCategoria.SelectedIndex = -1;
+
+                ddlMarca.DataSource = datosMarca.listaMarcas();
+                ddlMarca.DataValueField = "Id";
+                ddlMarca.DataTextField = "Descripcion";
+                ddlMarca.DataBind();
             }
             catch (Exception ex)
             {
@@ -47,5 +72,25 @@ namespace Vista
         {
             Response.Redirect("Catalogo.aspx");
         }
+
+        protected void agregarNuevo_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void Buscar_Click(object sender, EventArgs e)
+        {
+            //gvArticulos.DataSource = Filtro.filtroAvanzado(
+            //    (List<Articulo>)Session["listaArticulos"],
+
+            //    );
+            //gvArticulos.DataBind();
+        }
+        protected void busquedaRapida_Click(object sender, EventArgs e)
+        {
+            gvArticulos.DataSource = Filtro.busquedaRapida((List<Articulo>)Session["listaArticulos"], txbBusquedaRapida.Text);
+            gvArticulos.DataBind();
+        }
+        
     }
 }

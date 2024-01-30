@@ -72,7 +72,7 @@
                             <asp:TextBox runat="server" type="Number" class="form-control" placeholder="Max" ID="precioMax" />
                         </div>
                         <div class="col-1">
-                            <asp:Button Text=">" runat="server" CssClass="btn btn-primary" OnClick="rango_Click" />
+                            <asp:Button Text=">" runat="server" CssClass="btn btn-primary" OnClick="precio_Click" />
                         </div>
                     </div>
                 </div>

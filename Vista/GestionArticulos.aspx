@@ -12,13 +12,41 @@
     <form id="form1" runat="server">
         <div class="container">
             <hr />
-            <div class="row">
-                <div class="col-4">
-                    <asp:DropDownList runat="server" ID="ddlCategoria" class="form-select form-select-sm" aria-label="Small select example"></asp:DropDownList>
+                <%--        busqueda rapida     --%>
+            <div class="row m-3">
+                <div class="input-group w-75">
+                    <asp:TextBox runat="server" ID="txbBusquedaRapida" type="text" class="form-control" placeholder="Busqueda rapida (nombre, marca, categoria...)" aria-label="Recipient's username" aria-describedby="button-addon2" />
+                    <asp:Button runat="server" class="btn btn-outline-secondary" type="button" Text="Buscar" OnClick="busquedaRapida_Click" />
+                </div>
+            </div>
+            <%--        Categoria y marca       --%>
+            <div class="row m-3">
+                <div class="input-group col">
+                    <label class="input-group-text" for="ddlCategoria">Categoria</label>
+                    <asp:DropDownList runat="server" CssClass="form-select" ID="ddlCategoria" >
+                    </asp:DropDownList>
+                </div>
+                <div class="input-group col">
+                    <label class="input-group-text" for="ddlCategoria">Marca</label>
+                    <asp:DropDownList runat="server" CssClass="form-select" ID="ddlMarca">
+                    </asp:DropDownList>
+                </div>
+            </div>
+            <div class="row m-3">
+                <%--        Precio      --%>
+                <div class="input-group col-lg col-md col-sm">
+                    <span class="input-group-text">Precio</span>
+                    <asp:TextBox type="number" aria-label="" placeholder="Precio minimo"  class="form-control"/>
+                    <asp:TextBox type="number" placeholder="Precio maximo" aria-label="" class="form-control"/>
+                </div>
+                <%--        Buscar      --%>
+                <div class="col">
+                    <asp:Button Text="Buscar" CssClass="btn btn-success" runat="server" OnClick="Buscar_Click" />
                 </div>
             </div>
             <div class="row">
                 <div class="col">
+                    <%--        Tabla articulos     --%>
                     <asp:GridView runat="server" ID="gvArticulos" CssClass="table" AutoGenerateColumns="false" AllowPaging="true"
                         OnSelectedIndexChanged="gvArticulos_SelectedIndexChanged" PageSize="8" OnRowDeleting="gvArticulos_RowDeleting">
                         <Columns>
@@ -36,7 +64,8 @@
             </div>
             <div class="row">
                 <div class="d-flex justify-content-end">
-                    <asp:Button Text="Salir" runat="server" CssClass="btn btn-danger" OnClick="salir_Click" />
+                    <asp:Button Text="Agregar nuevo" runat="server" CssClass="btn btn-primary m-3" OnClick="agregarNuevo_Click" />
+                    <asp:Button Text="Salir" runat="server" CssClass="btn btn-danger m-3" OnClick="salir_Click" />
                 </div>
             </div>
             <div class="row">
