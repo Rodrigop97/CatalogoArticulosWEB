@@ -1,10 +1,12 @@
 ﻿using Dominio;
+using Microsoft.SqlServer.Server;
 using Negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace Vista
@@ -45,7 +47,13 @@ namespace Vista
                         txtNombre.InnerText = seleccionado.Nombre;
                         txtDescripcion.InnerText = seleccionado.Descripcion;
                         txtPrecio.InnerText = "$ " + seleccionado.Precio.ToString();
+                        txtMarca.InnerText = seleccionado.Marca.Descripcion;
+                        txtCategoria.InnerText = seleccionado.Categoria.Descripcion;
                     }
+                    //imgArticulo.Src = seleccionado.Imagen;
+                    //if (seleccionado.Imagen.Contains("http"))
+                    //    imgArticulo.Src = seleccionado.Imagen;
+                    //else
                     imgArticulo.Src = seleccionado.Imagen;
                 }
                 else
@@ -62,6 +70,17 @@ namespace Vista
             seleccionado.Precio = Decimal.Parse(txbPrecio.Text);
             seleccionado.Marca.Id = int.Parse(ddlMarca.SelectedValue);
             seleccionado.Categoria.Id = int.Parse(ddlCategoria.SelectedValue);
+
+            if (sImg.Value == "local")
+            {
+                string rutaImg = Server.MapPath("./img/admin/articulos/");
+                imgLocal.PostedFile.SaveAs(rutaImg + seleccionado.Codigo+"-img.png");
+                seleccionado.Imagen = "/img/admin/articulos/" + seleccionado.Codigo + "-img.png";
+            }
+            else
+            {
+                seleccionado.Imagen = imgInternet.Value;
+            }
             try
             {
                 ArticuloNegocio articuloNegocio = new ArticuloNegocio();

@@ -75,7 +75,7 @@ namespace Negocio
             try
             {
                 //Consulta completa datos.establecerConsulta("update ARTICULOS set Codigo = @codigo, Nombre = @nombre, Descripcion = @desc, IdMarca = @idMarca, IdCategoria = @idCategoria, ImagenUrl = @img, Precio = @precio");
-                datos.establecerConsulta("update ARTICULOS set Nombre = @nombre, Descripcion = @desc, IdMarca = @idMarca, IdCategoria = @idCategoria, Precio = @precio where Id = @id");
+                datos.establecerConsulta("update ARTICULOS set Nombre = @nombre, Descripcion = @desc, IdMarca = @idMarca, IdCategoria = @idCategoria, ImagenUrl = @img, Precio = @precio where Id = @id");
                 datos.establecerParametros("@id", articulo.Id);
                 datos.establecerParametros("@codigo", (object)articulo.Codigo ?? DBNull.Value);
                 datos.establecerParametros("@nombre", (object)articulo.Nombre ?? DBNull.Value);

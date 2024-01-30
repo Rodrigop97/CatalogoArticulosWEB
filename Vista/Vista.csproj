@@ -139,7 +139,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="img\user\" />
+    <Folder Include="img\admin\articulos\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
