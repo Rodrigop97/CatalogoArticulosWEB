@@ -64,27 +64,30 @@ namespace Vista
 
         protected void guardar_Click(object sender, EventArgs e)
         {
-            Articulo seleccionado =  ((List<Articulo>)Session["listaArticulos"]).Find(x => x.Id == int.Parse(Request.QueryString["id"]));
-            seleccionado.Nombre = txbNombre.Text;
-            seleccionado.Descripcion = txbDescripcion.Text;
-            seleccionado.Precio = Decimal.Parse(txbPrecio.Text);
-            seleccionado.Marca.Id = int.Parse(ddlMarca.SelectedValue);
-            seleccionado.Categoria.Id = int.Parse(ddlCategoria.SelectedValue);
-
-            if (sImg.Value == "local")
-            {
-                string rutaImg = Server.MapPath("./img/admin/articulos/");
-                imgLocal.PostedFile.SaveAs(rutaImg + seleccionado.Codigo+"-img.png");
-                seleccionado.Imagen = "/img/admin/articulos/" + seleccionado.Codigo + "-img.png";
-            }
-            else
-            {
-                seleccionado.Imagen = imgInternet.Value;
-            }
             try
             {
+                Articulo seleccionado =  ((List<Articulo>)Session["listaArticulos"]).Find(x => x.Id == int.Parse(Request.QueryString["id"]));
+                seleccionado.Nombre = txbNombre.Text;
+                seleccionado.Descripcion = txbDescripcion.Text;
+                seleccionado.Precio = Decimal.Parse(txbPrecio.Text);
+                seleccionado.Marca.Id = int.Parse(ddlMarca.SelectedValue);
+                seleccionado.Categoria.Id = int.Parse(ddlCategoria.SelectedValue);
+
+                if (sImg.Value == "local")
+                {
+                    if (!string.IsNullOrEmpty(imgLocal.Value))
+                    { 
+                        string rutaImg = Server.MapPath("./img/admin/articulos/");
+                        imgLocal.PostedFile.SaveAs(rutaImg + seleccionado.Codigo + "-img.png");
+                        seleccionado.Imagen = "/img/admin/articulos/" + seleccionado.Codigo + "-img.png"; 
+                    }
+                }
+                else
+                    if (!string.IsNullOrEmpty(imgInternet.Value))
+                        seleccionado.Imagen = imgInternet.Value;
                 ArticuloNegocio articuloNegocio = new ArticuloNegocio();
                 articuloNegocio.actualizarArticulo(seleccionado);
+                Response.Redirect("Catalogo.aspx", false);
             }
             catch (Exception ex)
             {

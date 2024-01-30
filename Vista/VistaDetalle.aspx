@@ -34,7 +34,6 @@
             if (input.value)
                 document.getElementsByClassName("object-fit-contain")[0].src = input.value;
         }
-
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
