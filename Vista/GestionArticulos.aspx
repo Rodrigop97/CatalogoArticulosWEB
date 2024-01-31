@@ -36,8 +36,8 @@
                 <%--        Precio      --%>
                 <div class="input-group col-lg col-md col-sm">
                     <span class="input-group-text">Precio</span>
-                    <asp:TextBox type="number" aria-label="" placeholder="Precio minimo"  class="form-control"/>
-                    <asp:TextBox type="number" placeholder="Precio maximo" aria-label="" class="form-control"/>
+                    <asp:TextBox runat="server" type="number" id="txbPrecioMin" placeholder="Precio minimo"  class="form-control"/>
+                    <asp:TextBox runat="server" type="number" id="txbPrecioMax" placeholder="Precio maximo" class="form-control"/>
                 </div>
                 <%--        Buscar      --%>
                 <div class="col">

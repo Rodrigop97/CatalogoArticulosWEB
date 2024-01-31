@@ -19,19 +19,19 @@ namespace Helpers
                     x.Marca.Descripcion.ToUpper().Contains(busqueda.ToUpper()) ||
                     x.Categoria.Descripcion.ToUpper().Contains(busqueda.ToUpper()) );
         }
-        public static List<Articulo> filtroAvanzado(List<Articulo> lista, string categoria ,List<string> marca , string max , string min )
+        public static List<Articulo> filtroAvanzado(List<Articulo> lista, int categoria ,List<int> marca , string max , string min )
         {
             List<Articulo> listaFiltrada;
 
-            if (categoria != null)
-                listaFiltrada = lista.FindAll(x => x.Categoria.Descripcion == categoria);
+            if (categoria != -1)
+                listaFiltrada = lista.FindAll(x => x.Categoria.Id == categoria);
             else
                 listaFiltrada = lista;
-            if (marca != null)
+            if (marca != null )
             {
                 List<Articulo> aux = new List<Articulo>();
-                foreach (string item in marca)
-                    aux = aux.Concat(listaFiltrada.FindAll(x => x.Marca.Descripcion == item)).ToList();
+                foreach (int item in marca)
+                    aux = aux.Concat(listaFiltrada.FindAll(x => x.Marca.Id == item)).ToList();
                 listaFiltrada = aux;
             }
             if (!string.IsNullOrEmpty(max))

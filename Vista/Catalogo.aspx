@@ -33,7 +33,8 @@
                 <div class="m-4">
                     <h4 class="">Categoria</h4>
                     <ul class="list-group-item">
-                        <asp:RadioButtonList runat="server" ID="rblCategoria" OnSelectedIndexChanged="rblCategoria_SelectedIndexChanged" AutoPostBack="true">
+                        <asp:RadioButtonList runat="server" ID="rblCategoria" OnSelectedIndexChanged="ejecutarFiltros" AutoPostBack="true">
+                            
                         </asp:RadioButtonList>
                     </ul>
                 </div>
@@ -41,7 +42,7 @@
                 <div class="m-4">
                     <h4 class="">Marca</h4>
                     <ul class="list-group-item">
-                        <asp:CheckBoxList runat="server" ID="cblMarca" AutoPostBack="true" OnSelectedIndexChanged="cblMarca_SelectedIndexChanged">
+                        <asp:CheckBoxList runat="server" ID="cblMarca" AutoPostBack="true" OnSelectedIndexChanged="ejecutarFiltros">
                         </asp:CheckBoxList>
 
                         <%--<asp:Repeater runat="server" ID="cblMarca">
@@ -63,16 +64,16 @@
                     <h4 class="">Precio</h4>
                     <div class="row g-3">
                         <div class="col">
-                            <asp:TextBox runat="server" type="Number" class="form-control" placeholder="Min" ID="precioMin" />
+                            <asp:TextBox runat="server" type="Number" class="form-control" placeholder="Min" ID="txbPrecioMin" />
                         </div>
                         <div class="col-1">
                             <span style="align-self: center">-</span>
                         </div>
                         <div class="col">
-                            <asp:TextBox runat="server" type="Number" class="form-control" placeholder="Max" ID="precioMax" />
+                            <asp:TextBox runat="server" type="Number" class="form-control" placeholder="Max" ID="txbPrecioMax" />
                         </div>
                         <div class="col-1">
-                            <asp:Button Text=">" runat="server" CssClass="btn btn-primary" OnClick="precio_Click" />
+                            <asp:Button Text=">" runat="server" CssClass="btn btn-primary" OnClick="ejecutarFiltros" />
                         </div>
                     </div>
                 </div>

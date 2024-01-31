@@ -33,22 +33,22 @@ namespace Vista
         protected global::System.Web.UI.WebControls.CheckBoxList cblMarca;
 
         /// <summary>
-        /// Control precioMin.
+        /// Control txbPrecioMin.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox precioMin;
+        protected global::System.Web.UI.WebControls.TextBox txbPrecioMin;
 
         /// <summary>
-        /// Control precioMax.
+        /// Control txbPrecioMax.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox precioMax;
+        protected global::System.Web.UI.WebControls.TextBox txbPrecioMax;
 
         /// <summary>
         /// Control repArticulos.

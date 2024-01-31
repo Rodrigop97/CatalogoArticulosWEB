@@ -14,40 +14,46 @@ namespace Vista
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // PRUEBA DE PAGINA --------------------------->
-            Usuario adimn = new Usuario();
-            adimn.Nombre = "Rodrigo";
-            adimn.Apellido = "Peralta";
-            adimn.Email = "ad@ad.com";
-            adimn.Contraseña = "1234";
-            adimn.Admin = true;
-            Session.Add("usuario", adimn);
-            //----------------------------------------------------------- > 
-            try
+            if (!IsPostBack)
             {
-                ArticuloNegocio datosArticulo = new ArticuloNegocio();
-                CategoriaNegocio datosCategoria = new CategoriaNegocio();
-                MarcaNegocio datosMarca = new MarcaNegocio();
+                try
+                {
+                    // PRUEBA DE PAGINA --------------------------->
+                    Usuario adimn = new Usuario();
+                    adimn.Nombre = "Rodrigo";
+                    adimn.Apellido = "Peralta";
+                    adimn.Email = "ad@ad.com";
+                    adimn.Contraseña = "1234";
+                    adimn.Admin = true;
+                    Session.Add("usuario", adimn);
+                    //----------------------------------------------------------- > 
+                    ArticuloNegocio datosArticulo = new ArticuloNegocio();
+                    CategoriaNegocio datosCategoria = new CategoriaNegocio();
+                    MarcaNegocio datosMarca = new MarcaNegocio();
 
-                if (Session["listaArticulos"] == null)
-                    Session.Add("listaArticulos", datosArticulo.listarArticulos());
-                gvArticulos.DataSource = Session["listaArticulos"];
-                gvArticulos.DataBind();
+                    if (Session["listaArticulos"] == null)
+                        Session.Add("listaArticulos", datosArticulo.listarArticulos());
+                    gvArticulos.DataSource = Session["listaArticulos"];
+                    gvArticulos.DataBind();
 
-                ddlCategoria.DataSource = datosCategoria.listaCategoria();
-                ddlCategoria.DataValueField = "Id";
-                ddlCategoria.DataTextField = "Descripcion";
-                ddlCategoria.DataBind();
-                ddlCategoria.SelectedIndex = -1;
+                    List<Categoria> listCategoria = datosCategoria.listaCategoria();
+                    listCategoria.Insert(0,new Categoria {Id=-1 });
+                    ddlCategoria.DataSource = listCategoria;
+                    ddlCategoria.DataValueField = "Id";
+                    ddlCategoria.DataTextField = "Descripcion";
+                    ddlCategoria.DataBind();
 
-                ddlMarca.DataSource = datosMarca.listaMarcas();
-                ddlMarca.DataValueField = "Id";
-                ddlMarca.DataTextField = "Descripcion";
-                ddlMarca.DataBind();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
+                    List<Marca> listMarca = datosMarca.listaMarcas();
+                    listMarca.Insert(0, new Marca { Id = -1});
+                    ddlMarca.DataSource = listMarca;
+                    ddlMarca.DataValueField = "Id";
+                    ddlMarca.DataTextField = "Descripcion";
+                    ddlMarca.DataBind();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
         }
 
@@ -80,11 +86,25 @@ namespace Vista
 
         protected void Buscar_Click(object sender, EventArgs e)
         {
-            //gvArticulos.DataSource = Filtro.filtroAvanzado(
-            //    (List<Articulo>)Session["listaArticulos"],
+            // Tomo el ID de la categoria seleccionada
+            int idFiltroCategoria = int.Parse(ddlCategoria.SelectedItem.Value);
+            // Tomo los ID de los filtro de marca
+            List<int> idFiltroMarca = (int.Parse(ddlMarca.SelectedValue) != -1)
+                ? new List<int> { int.Parse(ddlMarca.SelectedValue) }
+                : null;
+            // Tomo el valor de max y min de precio
+            string precioMax = txbPrecioMax.Text;
+            string precioMin = txbPrecioMin.Text;
 
-            //    );
-            //gvArticulos.DataBind();
+            gvArticulos.DataSource = Filtro.filtroAvanzado
+                (
+                (List<Articulo>)Session["listaArticulos"],
+                idFiltroCategoria,
+                idFiltroMarca,
+                precioMax,
+                precioMin
+                );
+            gvArticulos.DataBind();
         }
         protected void busquedaRapida_Click(object sender, EventArgs e)
         {
