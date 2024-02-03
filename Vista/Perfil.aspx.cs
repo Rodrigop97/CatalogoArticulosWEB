@@ -14,47 +14,53 @@ namespace Vista
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if (Session["usuario"] != null)
             {
-                try
+                if (!IsPostBack)
                 {
-                    FavoritosNegocio favoritosArticulos = new FavoritosNegocio();
-                    MarcaNegocio datosMarcas = new MarcaNegocio();
-                    CategoriaNegocio datosCategorias = new CategoriaNegocio();
-                    Usuario user = (Usuario)Session["usuario"];
+                    try
+                    {
+                        FavoritosNegocio favoritosArticulos = new FavoritosNegocio();
+                        MarcaNegocio datosMarcas = new MarcaNegocio();
+                        CategoriaNegocio datosCategorias = new CategoriaNegocio();
+                        Usuario user = (Usuario)Session["usuario"];
 
-                    //Session.Add("listaArticulos", datosArticulos.listarArticulos());
+                        //Session.Add("listaArticulos", datosArticulos.listarArticulos());
 
-                    //List<Articulo> favoritos = new List<Articulo>();
-                    //foreach (var item in (List<Articulo>)Session["listaArticulos"])
-                    //    foreach (int i in datosArticulos.listarArticulosFavoritos(user.Id))
-                    //        if (item.Id == i)
-                    //            favoritos.Add(item);
-                    List<Articulo> favoritos = ((List<Articulo>)Session["listaArticulos"])
-                    .Where(item => favoritosArticulos.listarArticulosFavoritos(user.Id).Contains(item.Id))
-                    .ToList();
-                    repArticulos.DataSource = favoritos;
-                    repArticulos.DataBind();
+                        //List<Articulo> favoritos = new List<Articulo>();
+                        //foreach (var item in (List<Articulo>)Session["listaArticulos"])
+                        //    foreach (int i in datosArticulos.listarArticulosFavoritos(user.Id))
+                        //        if (item.Id == i)
+                        //            favoritos.Add(item);
+                        List<Articulo> favoritos = ((List<Articulo>)Session["listaArticulos"])
+                        .Where(item => favoritosArticulos.listarArticulosFavoritos(user.Id).Contains(item.Id))
+                        .ToList();
+                        repArticulos.DataSource = favoritos;
+                        repArticulos.DataBind();
 
-                    //cblMarca.DataSource = datosMarcas.listaMarcas();
-                    //cblMarca.DataBind();
+                        //cblMarca.DataSource = datosMarcas.listaMarcas();
+                        //cblMarca.DataBind();
 
-                    //List<Categoria> listaCategoria = datosCategorias.listaCategoria();
-                    //listaCategoria.Insert(0, new Categoria { Id = -1, Descripcion = "Todos" });
-                    //rblCategoria.DataSource = listaCategoria;
-                    //rblCategoria.DataBind();
-                    //((RadioButtonList)rblCategoria).Items[0].Selected = true;
-                    txbEmail.Text = user.Email;
-                    //txbContraseña.Text = user.Contraseña;
-                    txbNombre.Text = user.Nombre != null ? user.Nombre : "";
-                    txbApellido.Text = user.Apellido != null ? user.Apellido : "";
-                    h1Bienvenida.InnerText = user.Nombre != null ? "Bienvenido " + user.Nombre + "!" : "Bienvenido " + user.Email.Split('@')[0];
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
+                        //List<Categoria> listaCategoria = datosCategorias.listaCategoria();
+                        //listaCategoria.Insert(0, new Categoria { Id = -1, Descripcion = "Todos" });
+                        //rblCategoria.DataSource = listaCategoria;
+                        //rblCategoria.DataBind();
+                        //((RadioButtonList)rblCategoria).Items[0].Selected = true;
+                        txbEmail.Text = user.Email;
+                        //txbContraseña.Text = user.Contraseña;
+                        txbNombre.Text = user.Nombre != null ? user.Nombre : "";
+                        txbApellido.Text = user.Apellido != null ? user.Apellido : "";
+                        h1Bienvenida.InnerText = user.Nombre != null ? "Bienvenido " + user.Nombre + "!" : "Bienvenido " + user.Email.Split('@')[0];
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
                 }
             }
+            else
+                Response.Redirect("Acceso.aspx");
+            
         }
 
         protected void iniciarSesion_Click(object sender, EventArgs e)

@@ -15,29 +15,29 @@
                 <%--        busqueda rapida     --%>
             <div class="row m-3">
                 <div class="input-group w-75">
-                    <asp:TextBox runat="server" ID="txbBusquedaRapida" type="text" class="form-control" placeholder="Busqueda rapida (nombre, marca, categoria...)" aria-label="Recipient's username" aria-describedby="button-addon2" />
-                    <asp:Button runat="server" class="btn btn-outline-secondary" type="button" Text="Buscar" OnClick="busquedaRapida_Click" />
+                    <asp:TextBox runat="server" ID="txbBusquedaRapida" type="text" class="form-control border-primary" placeholder="Busqueda rapida (nombre, marca, categoria...)" aria-label="Recipient's username" aria-describedby="button-addon2" />
+                    <asp:Button runat="server" class="btn btn-outline-primary" type="button" Text="Buscar" OnClick="busquedaRapida_Click" />
                 </div>
             </div>
             <%--        Categoria y marca       --%>
             <div class="row m-3">
                 <div class="input-group col">
-                    <label class="input-group-text" for="ddlCategoria">Categoria</label>
-                    <asp:DropDownList runat="server" CssClass="form-select" ID="ddlCategoria" >
+                    <label class="input-group-text border-success" for="ddlCategoria">Categoria</label>
+                    <asp:DropDownList runat="server" CssClass="form-select border-success" ID="ddlCategoria" >
                     </asp:DropDownList>
                 </div>
                 <div class="input-group col">
-                    <label class="input-group-text" for="ddlCategoria">Marca</label>
-                    <asp:DropDownList runat="server" CssClass="form-select" ID="ddlMarca">
+                    <label class="input-group-text border-success" for="ddlCategoria">Marca</label>
+                    <asp:DropDownList runat="server" CssClass="form-select border-success" ID="ddlMarca">
                     </asp:DropDownList>
                 </div>
             </div>
             <div class="row m-3">
                 <%--        Precio      --%>
                 <div class="input-group col-lg col-md col-sm">
-                    <span class="input-group-text">Precio</span>
-                    <asp:TextBox runat="server" type="number" id="txbPrecioMin" placeholder="Precio minimo"  class="form-control"/>
-                    <asp:TextBox runat="server" type="number" id="txbPrecioMax" placeholder="Precio maximo" class="form-control"/>
+                    <span class="input-group-text border-success">Precio</span>
+                    <asp:TextBox runat="server" type="number" id="txbPrecioMin" placeholder="Precio minimo"  class="form-control border-success"/>
+                    <asp:TextBox runat="server" type="number" id="txbPrecioMax" placeholder="Precio maximo" class="form-control border-success"/>
                 </div>
                 <%--        Buscar      --%>
                 <div class="col">
@@ -50,7 +50,7 @@
                     <asp:GridView runat="server" ID="gvArticulos" CssClass="table" AutoGenerateColumns="false" AllowPaging="true"
                         OnSelectedIndexChanged="gvArticulos_SelectedIndexChanged" PageSize="8" OnRowDeleting="gvArticulos_RowDeleting">
                         <Columns>
-                            <asp:BoundField DataField="Id" Visible="false" />
+                            <asp:BoundField DataField="Id" HeaderStyle-CssClass="d-none" ItemStyle-CssClass="d-none" />
                             <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
                             <asp:BoundField DataField="Categoria" HeaderText="Categoria" />
                             <asp:BoundField DataField="Marca" HeaderText="Marca" />

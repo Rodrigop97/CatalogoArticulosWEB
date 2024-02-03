@@ -14,64 +14,68 @@ namespace Vista
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            // PRUEBA DE PAGINA --------------------------->
+            Usuario adimn = new Usuario();
+            adimn.Nombre = "Rodrigo";
+            adimn.Apellido = "Peralta";
+            adimn.Email = "ad@ad.com";
+            adimn.Contraseña = "1234";
+            adimn.Admin = true;
+            Session.Add("usuario", adimn);
+            //----------------------------------------------------------- > 
+            if (Session["usuario"] != null && ((Usuario)Session["usuario"]).Admin)
             {
-                try
+                if (!IsPostBack)
                 {
-                    // PRUEBA DE PAGINA --------------------------->
-                    Usuario adimn = new Usuario();
-                    adimn.Nombre = "Rodrigo";
-                    adimn.Apellido = "Peralta";
-                    adimn.Email = "ad@ad.com";
-                    adimn.Contraseña = "1234";
-                    adimn.Admin = true;
-                    Session.Add("usuario", adimn);
-                    //----------------------------------------------------------- > 
-                    ArticuloNegocio datosArticulo = new ArticuloNegocio();
-                    CategoriaNegocio datosCategoria = new CategoriaNegocio();
-                    MarcaNegocio datosMarca = new MarcaNegocio();
+                    try
+                    {
+                        ArticuloNegocio articuloNegocio = new ArticuloNegocio();
+                        CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
+                        MarcaNegocio marcaNegocio = new MarcaNegocio();
 
-                    if (Session["listaArticulos"] == null)
-                        Session.Add("listaArticulos", datosArticulo.listarArticulos());
-                    gvArticulos.DataSource = Session["listaArticulos"];
-                    gvArticulos.DataBind();
+                        if (Session["listaArticulos"] == null)
+                            Session.Add("listaArticulos", articuloNegocio.listarArticulos());
+                        gvArticulos.DataSource = Session["listaArticulos"];
+                        gvArticulos.DataBind();
 
-                    List<Categoria> listCategoria = datosCategoria.listaCategoria();
-                    listCategoria.Insert(0,new Categoria {Id=-1 });
-                    ddlCategoria.DataSource = listCategoria;
-                    ddlCategoria.DataValueField = "Id";
-                    ddlCategoria.DataTextField = "Descripcion";
-                    ddlCategoria.DataBind();
+                        List<Categoria> listCategoria = categoriaNegocio.listaCategoria();
+                        listCategoria.Insert(0, new Categoria { Id = -1 });
+                        ddlCategoria.DataSource = listCategoria;
+                        ddlCategoria.DataValueField = "Id";
+                        ddlCategoria.DataTextField = "Descripcion";
+                        ddlCategoria.DataBind();
 
-                    List<Marca> listMarca = datosMarca.listaMarcas();
-                    listMarca.Insert(0, new Marca { Id = -1});
-                    ddlMarca.DataSource = listMarca;
-                    ddlMarca.DataValueField = "Id";
-                    ddlMarca.DataTextField = "Descripcion";
-                    ddlMarca.DataBind();
+                        List<Marca> listMarca = marcaNegocio.listaMarcas();
+                        listMarca.Insert(0, new Marca { Id = -1 });
+                        ddlMarca.DataSource = listMarca;
+                        ddlMarca.DataValueField = "Id";
+                        ddlMarca.DataTextField = "Descripcion";
+                        ddlMarca.DataBind();
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
                 }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
+            }
+            else
+            {
+                Session.Add("error", "No tiene permisos para acceder a esta pagina.");
+                Response.Redirect("Error.aspx");
             }
         }
 
         protected void gvArticulos_SelectedIndexChanged(object sender,EventArgs e)
         {
             int indice = ((GridView)sender).SelectedIndex;
-            string id = ((List<Articulo>)((GridView)sender).DataSource)[indice].Id.ToString();
-            Response.Redirect("VistaDetalle.aspx?id=" + id);
+            string id = gvArticulos.Rows[indice].Cells[0].Text.ToString();
+            Response.Redirect("PanelArticulos.aspx?id=" + id);
         }
         protected void gvArticulos_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             int indice = e.RowIndex;
-            int id = ((List<Articulo>)((GridView)sender).DataSource)[indice].Id;
-
-            // colocar una confimacion antes de eliminar
-
-            ArticuloNegocio articuloNegocio = new ArticuloNegocio();
-            articuloNegocio.eliminarArticulo(id);
+            string id = gvArticulos.Rows[indice].Cells[0].Text.ToString();
+            Response.Redirect("PanelArticulos.aspx?id=" + id + "&eliminar=eliminar");
         }
 
         protected void salir_Click(object sender, EventArgs e)
@@ -81,7 +85,7 @@ namespace Vista
 
         protected void agregarNuevo_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("PanelArticulos.aspx?id=-1");
         }
 
         protected void Buscar_Click(object sender, EventArgs e)

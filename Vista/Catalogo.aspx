@@ -2,7 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
-        .viaje:hover{transform: scale(1.02); }
+        .carta:hover{transform: scale(1.02); }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -86,7 +86,7 @@
         <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 g-4 mt-auto">
             <asp:Repeater runat="server" ID="repArticulos">
                 <ItemTemplate>
-                    <div class="card-group viaje">
+                    <div class="card-group carta">
                         <div class="card">
                             <img src="<%#((string)Eval("Imagen")).Replace("~/","")%>" class="card-img-top img-thumbnail object-fit-contain" alt="imagen-<%#Eval("Nombre") %>" onerror="noImage(this)" style="max-height:250px; min-height:225px" />
                             <div class="card-body">
