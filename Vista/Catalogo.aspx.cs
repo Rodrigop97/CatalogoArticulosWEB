@@ -22,7 +22,14 @@ namespace Vista
                 MarcaNegocio datosMarcas = new MarcaNegocio();
                 CategoriaNegocio datosCategorias = new CategoriaNegocio();
                 Session.Add("listaArticulos", datosArticulos.listarArticulos());
-                repArticulos.DataSource = Session["listaArticulos"];
+
+                //repArticulos.DataSource = Session["listaArticulos"];
+                repArticulos.DataSource = Request.QueryString["favoritos"] == null ?
+                    Session["listaArticulos"]
+                    : datosArticulos.listarArticulos().Where
+                    (
+                        art => ((List<int>)Session["favoritos"]).Contains(art.Id)
+                    ).ToList();
                 repArticulos.DataBind();
 
                 cblMarca.DataSource = datosMarcas.listaMarcas();
@@ -60,7 +67,12 @@ namespace Vista
 
             repArticulos.DataSource = Filtro.filtroAvanzado
                 (
-                (List<Articulo>)Session["listaArticulos"],
+                Request.QueryString["favoritos"] == null ?
+                    ((List<Articulo>)Session["listaArticulos"])  // Si se solicito ver el catalogo paso los articulos de la sesion
+                    : ((List<Articulo>)Session["listaArticulos"]).Where // Si se solicito ver los favoritos filtro aquellos que lo sean
+                    (
+                        art => ((List<int>)Session["favoritos"]).Contains(art.Id)
+                    ).ToList(),
                 idFiltroCategoria,
                 idFiltroMarca,
                 precioMax,

@@ -35,7 +35,9 @@
         <%--    ARTICULOS FAVORITOS --%>
         <div class="col-6">
             <%--style="min-height:60vh; max-height:60vh">--%>
-            <h2 class="m-3">Favoritos</h2>
+            <a href="Catalogo.aspx?favoritos=t" class="text-decoration-none">
+                <h2 class="m-3 text-body">Ver favoritos</h2>
+            </a>
             <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner" style="">
                     <div class="carousel-item active" style="max-width: 450px">
