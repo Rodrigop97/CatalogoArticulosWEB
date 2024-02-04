@@ -18,42 +18,18 @@ namespace Vista
             if (!IsPostBack) 
                 if (Request.QueryString["id"] != null )
                 {
+                    // el id se guarda en sesion para seguirdad del elemento seleccionado
+                    Session.Add("idActual", Request.QueryString["id"]);
+
                     ArticuloNegocio articuloNegocio = new ArticuloNegocio();
                     if (Session["listaArticulos"] == null)
                         Session.Add("listaArticulos", articuloNegocio.listarArticulos());
-                    // Se supone que solo se accede con un id de articulo, sino, hay que cambiar el "try catch"
                     Articulo seleccionado = ((List<Articulo>)Session["listaArticulos"]).Find(x => x.Id == int.Parse(Request.QueryString["id"]));
-                    if (Session["usuario"] != null && ((Usuario)Session["usuario"]).Admin)
-                    {
-                        CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
-                        MarcaNegocio marcaNegocio = new MarcaNegocio();
-                        ddlMarca.DataSource = marcaNegocio.listaMarcas();
-                        ddlMarca.DataValueField = "Id";
-                        ddlMarca.DataTextField = "Descripcion";
-                        ddlMarca.DataBind();
-                        ddlCategoria.DataSource = categoriaNegocio.listaCategoria();
-                        ddlCategoria.DataValueField = "Id";
-                        ddlCategoria.DataTextField = "Descripcion";
-                        ddlCategoria.DataBind();
-
-                        txbNombre.Text = seleccionado.Nombre;
-                        txbDescripcion.Text = seleccionado.Descripcion;
-                        txbPrecio.Text = seleccionado.Precio.ToString();
-                        ddlCategoria.SelectedValue = seleccionado.Categoria.Id.ToString();
-                        ddlMarca.SelectedValue = seleccionado.Marca.Id.ToString();
-                    }
-                    else
-                    {
-                        txtNombre.InnerText = seleccionado.Nombre;
-                        txtDescripcion.InnerText = seleccionado.Descripcion;
-                        txtPrecio.InnerText = "$ " + seleccionado.Precio.ToString();
-                        txtMarca.InnerText = seleccionado.Marca.Descripcion;
-                        txtCategoria.InnerText = seleccionado.Categoria.Descripcion;
-                    }
-                    //imgArticulo.Src = seleccionado.Imagen;
-                    //if (seleccionado.Imagen.Contains("http"))
-                    //    imgArticulo.Src = seleccionado.Imagen;
-                    //else
+                    txtNombre.InnerText = seleccionado.Nombre;
+                    txtDescripcion.InnerText = seleccionado.Descripcion;
+                    txtPrecio.InnerText = "$ " + seleccionado.Precio.ToString();
+                    txtMarca.InnerText = seleccionado.Marca.Descripcion;
+                    txtCategoria.InnerText = seleccionado.Categoria.Descripcion;
                     imgArticulo.Src = seleccionado.Imagen;
                 }
                 else
@@ -62,32 +38,15 @@ namespace Vista
                 }
         }
 
-        protected void guardar_Click(object sender, EventArgs e)
+        protected void favoritos_Click(object sender, EventArgs e)
         {
             try
             {
-                Articulo seleccionado =  ((List<Articulo>)Session["listaArticulos"]).Find(x => x.Id == int.Parse(Request.QueryString["id"]));
-                seleccionado.Nombre = txbNombre.Text;
-                seleccionado.Descripcion = txbDescripcion.Text;
-                seleccionado.Precio = Decimal.Parse(txbPrecio.Text);
-                seleccionado.Marca.Id = int.Parse(ddlMarca.SelectedValue);
-                seleccionado.Categoria.Id = int.Parse(ddlCategoria.SelectedValue);
-
-                if (sImg.Value == "local")
-                {
-                    if (!string.IsNullOrEmpty(imgLocal.Value))
-                    { 
-                        string rutaImg = Server.MapPath("./img/admin/articulos/");
-                        imgLocal.PostedFile.SaveAs(rutaImg + seleccionado.Codigo + "-img.png");
-                        seleccionado.Imagen = "/img/admin/articulos/" + seleccionado.Codigo + "-img.png"; 
-                    }
-                }
-                else
-                    if (!string.IsNullOrEmpty(imgInternet.Value))
-                        seleccionado.Imagen = imgInternet.Value;
-                ArticuloNegocio articuloNegocio = new ArticuloNegocio();
-                articuloNegocio.actualizarArticulo(seleccionado);
-                Response.Redirect("Catalogo.aspx", false);
+                FavoritosNegocio favoritosNegocio = new FavoritosNegocio();
+                int idUsuario = ((Usuario)Session["usuario"]).Id;
+                int idArticulo = int.Parse((string)Session["idActual"]);
+                favoritosNegocio.agregarFavorito(idUsuario, idArticulo);
+                Session.Add("favoritos", favoritosNegocio.listarArticulosFavoritos(idUsuario));
             }
             catch (Exception ex)
             {
@@ -95,9 +54,20 @@ namespace Vista
             }
         }
 
-        protected void favoritos_Click(object sender, EventArgs e)
+        protected void quitarFavorito_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                FavoritosNegocio favoritosNegocio = new FavoritosNegocio();
+                int idUsuario = ((Usuario)Session["usuario"]).Id;
+                int idArticulo = int.Parse((string)Session["idActual"]);
+                favoritosNegocio.quitarFavorito(idUsuario, idArticulo);
+                Session.Add("favoritos", favoritosNegocio.listarArticulosFavoritos(idUsuario));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

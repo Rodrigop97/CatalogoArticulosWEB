@@ -15,13 +15,13 @@ namespace Vista
         protected void Page_Load(object sender, EventArgs e)
         {
             // PRUEBA DE PAGINA --------------------------->
-            Usuario adimn = new Usuario();
-            adimn.Nombre = "Rodrigo";
-            adimn.Apellido = "Peralta";
-            adimn.Email = "ad@ad.com";
-            adimn.Contraseña = "1234";
-            adimn.Admin = true;
-            Session.Add("usuario", adimn);
+            //Usuario adimn = new Usuario();
+            //adimn.Nombre = "Rodrigo";
+            //adimn.Apellido = "Peralta";
+            //adimn.Email = "ad@ad.com";
+            //adimn.Contraseña = "1234";
+            //adimn.Admin = true;
+            //Session.Add("usuario", adimn);
             //----------------------------------------------------------- > 
             if (Session["usuario"] != null && ((Usuario)Session["usuario"]).Admin)
             {

@@ -16,37 +16,60 @@ namespace Vista
 
         }
 
-        protected void btnAcceso_Click(object sender, EventArgs e)
+        protected void login_Click(object sender, EventArgs e)
         {
-            UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
-            Usuario usuario = new Usuario();
-            usuario.Email = txbEmail.Text;
-            usuario.Contraseña = txbContraseña.Text;
-            usuario.Nombre = txbNombre != null ? txbNombre.Text : null ;
-            usuario.Apellido = txbApellido != null ? txbApellido.Text : null;
-            //try
-            //{
+            try
+            {
+                UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+                Usuario usuario = new Usuario();
+                usuario.Email = txbEmail.Text;
+                usuario.Contraseña = txbContraseña.Text;
+                usuario.Nombre = txbNombre != null ? txbNombre.Text : null ;
+                usuario.Apellido = txbApellido != null ? txbApellido.Text : null;
+                if (usuarioNegocio.login(usuario))
+                {
+                    Session.Add("usuario",usuario);
+                    FavoritosNegocio favoritosNegocio = new FavoritosNegocio();
+                    Session.Add("favoritos", favoritosNegocio.listarArticulosFavoritos(usuario.Id));
+                    Response.Redirect("Catalogo.aspx",false);
+                }
+                else
+                {
+                    Session.Add("Error", "Usuario o contraseña incorrectos");
+                    Response.Redirect("Error.aspx", false);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
-            //}
-            //catch (Exception)
-            //{
-            //    throw;
-            //}
-            if (Request.QueryString["signin"] == null && usuarioNegocio.login(usuario))
+        protected void signin_Click(object sender, EventArgs e)
+        {
+            try
             {
-                Session.Add("Usuario",usuario);
-                Response.Redirect("Catalogo.aspx");
+                UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+                Usuario usuario = new Usuario();
+                usuario.Email = txbEmail.Text;
+                usuario.Contraseña = txbContraseña.Text;
+                usuario.Nombre = txbNombre != null ? txbNombre.Text : null;
+                usuario.Apellido = txbApellido != null ? txbApellido.Text : null;
+                if (usuarioNegocio.signin(usuario))
+                {
+                    Session.Remove("signin");
+                    Session.Add("usuario", usuario);
+                    Response.Redirect("Catalogo.aspx", false);
+                }
+                else
+                {
+                    Session.Add("Error", "Usuario o contraseña incorrectos");
+                    Response.Redirect("Error.aspx", false);
+                }
             }
-            else if (Request.QueryString["signin"] != null && usuarioNegocio.signin(usuario))
+            catch (Exception ex)
             {
-                Session.Remove("signin");
-                Session.Add("Usuario", usuario);
-                Response.Redirect("Catalogo.aspx");
-            }
-            else
-            {
-                Session.Add("Error", "Usuario o contraseña incorrectos");
-                Response.Redirect("Error.aspx");
+                throw ex;
             }
         }
     }

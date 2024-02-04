@@ -29,7 +29,7 @@
                     <% if (Request.QueryString["signin"] == null)
                         {
                     %>
-                    <asp:Button runat="server" Text="Iniciar sesion" CssClass="btn btn-primary" OnClick="btnAcceso_Click" />
+                    <asp:Button runat="server" Text="Iniciar sesion" CssClass="btn btn-primary" OnClick="login_Click" />
                     <a href="Acceso.aspx?signin=true">Registrarse</a>
                     <%}
                         else
@@ -46,7 +46,7 @@
                         <asp:CheckBox ID="cbxAdmin" runat="server" />
                         <label class="form-check-label" for="cbxAdmin">Solicitar rol admin</label>
                     </div>
-                    <asp:Button runat="server" Text="Registrarse" CssClass="btn btn-primary" OnClick="btnAcceso_Click" />
+                    <asp:Button runat="server" Text="Registrarse" CssClass="btn btn-primary" OnClick="signin_Click" />
                     <a href="Catalogo.aspx">Cancelar</a>
                     <%} %>
                 </div>
