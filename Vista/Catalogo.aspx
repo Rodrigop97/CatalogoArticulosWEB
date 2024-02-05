@@ -2,7 +2,9 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
-        .carta:hover{transform: scale(1.02); }
+        .carta:hover {
+            transform: scale(1.02);
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -26,7 +28,7 @@
     <div class="row my-4">
         <%--    FILTROS   --%>
         <div class="col-3 mt-3">
-            <div class="sticky-top" style="top:70px">
+            <div class="sticky-top" style="top: 70px">
                 <h4>Filtros aplicados</h4>
                 <hr />
                 <%--    CATEGORIA   --%>
@@ -34,7 +36,6 @@
                     <h4 class="">Categoria</h4>
                     <ul class="list-group-item">
                         <asp:RadioButtonList runat="server" ID="rblCategoria" OnSelectedIndexChanged="ejecutarFiltros" AutoPostBack="true">
-                            
                         </asp:RadioButtonList>
                     </ul>
                 </div>
@@ -44,7 +45,6 @@
                     <ul class="list-group-item">
                         <asp:CheckBoxList runat="server" ID="cblMarca" AutoPostBack="true" OnSelectedIndexChanged="ejecutarFiltros">
                         </asp:CheckBoxList>
-
                         <%--<asp:Repeater runat="server" ID="cblMarca">
                         <ItemTemplate>
                             <li class="list-group-item">
@@ -77,32 +77,29 @@
                         </div>
                     </div>
                 </div>
-
                 <a href="Catalogo.aspx" class="m-4">Borrar filtros</a>
             </div>
         </div>
-    <%--    CATALOGO   --%>
-    <div class="col">
-        <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 g-4 mt-auto">
-            <asp:Repeater runat="server" ID="repArticulos">
-                <ItemTemplate>
-                    <div class="card-group carta">
-                        <div class="card">
-                            <img src="<%#((string)Eval("Imagen")).Replace("~/","")%>" class="card-img-top img-thumbnail object-fit-contain" alt="imagen-<%#Eval("Nombre") %>" onerror="noImage(this)" style="max-height:250px; min-height:225px" />
-                            <div class="card-body">
-                                <p class="card-title"><%#Eval("Nombre") %></p>
-                                <h5 class="card-text">$ <%#Eval("Precio") %> </h5>
-                                <a class="btn btn-primary" href="VistaDetalle.aspx?id=<%#Eval("Id")%>" >Ver mas </a>
-                            </div>
-                            <%--<div class="card-footer">
-                                <small class="text-body-secondary">Last updated 3 mins ago</small>
+        <%--    CATALOGO   --%>
+        <div class="col">
+            <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 g-4 mt-auto">
+                <asp:Repeater runat="server" ID="repArticulos">
+                    <ItemTemplate>
+                        <div class="card-group carta">
+                            <div class="card">
+                                <img src="<%#((string)Eval("Imagen")).Replace("~/","")%>" class="card-img-top img-thumbnail object-fit-contain" alt="imagen-<%#Eval("Nombre") %>" onerror="noImage(this)" style="max-height: 250px; min-height: 225px" />
+                                <div class="card-body">
+                                    <p class="card-title"><%#Eval("Nombre") %></p>
+                                    <h5 class="card-text">$ <%#Eval("Precio") %> </h5>
+                                    <a class="btn btn-primary" href="VistaDetalle.aspx?id=<%#Eval("Id")%>">Ver mas </a>
+                                </div>
+                                <%--<div class="card-footer">
                             </div>--%>
+                            </div>
                         </div>
-                    </div>
-
-                </ItemTemplate>
-            </asp:Repeater>
+                    </ItemTemplate>
+                </asp:Repeater>
+            </div>
         </div>
-    </div>
     </div>
 </asp:Content>

@@ -18,19 +18,26 @@ namespace Vista
             if (!IsPostBack) 
                 if (Request.QueryString["id"] != null )
                 {
-                    // el id se guarda en sesion para seguirdad del elemento seleccionado
-                    Session.Add("idActual", Request.QueryString["id"]);
+                    try
+                    {
+                        Session.Add("idActual", Request.QueryString["id"]);
 
-                    ArticuloNegocio articuloNegocio = new ArticuloNegocio();
-                    if (Session["listaArticulos"] == null)
-                        Session.Add("listaArticulos", articuloNegocio.listarArticulos());
-                    Articulo seleccionado = ((List<Articulo>)Session["listaArticulos"]).Find(x => x.Id == int.Parse(Request.QueryString["id"]));
-                    txtNombre.InnerText = seleccionado.Nombre;
-                    txtDescripcion.InnerText = seleccionado.Descripcion;
-                    txtPrecio.InnerText = "$ " + seleccionado.Precio.ToString();
-                    txtMarca.InnerText = seleccionado.Marca.Descripcion;
-                    txtCategoria.InnerText = seleccionado.Categoria.Descripcion;
-                    imgArticulo.Src = seleccionado.Imagen;
+                        ArticuloNegocio articuloNegocio = new ArticuloNegocio();
+                        if (Session["listaArticulos"] == null)
+                            Session.Add("listaArticulos", articuloNegocio.listarArticulos());
+                        Articulo seleccionado = ((List<Articulo>)Session["listaArticulos"]).Find(x => x.Id == int.Parse(Request.QueryString["id"]));
+                        txtNombre.InnerText = seleccionado.Nombre;
+                        txtDescripcion.InnerText = seleccionado.Descripcion;
+                        txtPrecio.InnerText = "$ " + seleccionado.Precio.ToString();
+                        txtMarca.InnerText = seleccionado.Marca.Descripcion;
+                        txtCategoria.InnerText = seleccionado.Categoria.Descripcion;
+                        imgArticulo.Src = seleccionado.Imagen;
+                    }
+                    catch (Exception ex)
+                    {
+                        Session.Add("error", ex.ToString());
+                        Response.Redirect("Error.aspx");
+                    }
                 }
                 else
                 {
@@ -50,7 +57,8 @@ namespace Vista
             }
             catch (Exception ex)
             {
-                throw ex;
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx");
             }
         }
 
@@ -66,7 +74,8 @@ namespace Vista
             }
             catch (Exception ex)
             {
-                throw ex;
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx");
             }
         }
     }

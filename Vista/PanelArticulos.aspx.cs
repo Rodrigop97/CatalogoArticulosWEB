@@ -20,40 +20,48 @@ namespace Vista
                         Response.Redirect("Catalogo.aspx");
                     else
                     {
-                        // se guarda el id para que no se pueda alterar el articulo desde el link
-                        Session.Add("idActual", Request.QueryString["id"].ToString()); 
-
-                        ArticuloNegocio articuloNegocio = new ArticuloNegocio();
-                        if (Session["listaArticulos"] == null)
-                            Session.Add("listaArticulos", articuloNegocio.listarArticulos());
-
-                        MarcaNegocio marcaNegocio = new MarcaNegocio();
-                        ddlMarca.DataSource = marcaNegocio.listaMarcas();
-                        ddlMarca.DataValueField = "Id";
-                        ddlMarca.DataTextField = "Descripcion";
-                        ddlMarca.DataBind();
-
-                        CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
-                        ddlCategoria.DataSource = categoriaNegocio.listaCategoria();
-                        ddlCategoria.DataValueField = "Id";
-                        ddlCategoria.DataTextField = "Descripcion";
-                        ddlCategoria.DataBind();
-
-                        if (int.Parse(Request.QueryString["id"]) != -1)
+                        try
                         {
-                            Articulo seleccionado = ((List<Articulo>)Session["listaArticulos"]).Find(x => x.Id == int.Parse(Request.QueryString["id"]));
-                            txbCodigo.Text = seleccionado.Codigo;
-                            txbNombre.Text = seleccionado.Nombre;
-                            txbDescripcion.Text = seleccionado.Descripcion;
-                            txbPrecio.Text = seleccionado.Precio.ToString();
-                            ddlCategoria.SelectedValue = seleccionado.Categoria.Id.ToString();
-                            ddlMarca.SelectedValue = seleccionado.Marca.Id.ToString();
-                            imgArticulo.Src = seleccionado.Imagen;
-
-                            titulo.InnerText = "Modificar articulo";
+                            // se guarda el id para que no se pueda alterar el articulo desde el link
+                            Session.Add("idActual", Request.QueryString["id"].ToString()); 
+            
+                            ArticuloNegocio articuloNegocio = new ArticuloNegocio();
+                            if (Session["listaArticulos"] == null)
+                                Session.Add("listaArticulos", articuloNegocio.listarArticulos());
+            
+                            MarcaNegocio marcaNegocio = new MarcaNegocio();
+                            ddlMarca.DataSource = marcaNegocio.listaMarcas();
+                            ddlMarca.DataValueField = "Id";
+                            ddlMarca.DataTextField = "Descripcion";
+                            ddlMarca.DataBind();
+            
+                            CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
+                            ddlCategoria.DataSource = categoriaNegocio.listaCategoria();
+                            ddlCategoria.DataValueField = "Id";
+                            ddlCategoria.DataTextField = "Descripcion";
+                            ddlCategoria.DataBind();
+            
+                            if (int.Parse(Request.QueryString["id"]) != -1)
+                            {
+                                Articulo seleccionado = ((List<Articulo>)Session["listaArticulos"]).Find(x => x.Id == int.Parse(Request.QueryString["id"]));
+                                txbCodigo.Text = seleccionado.Codigo;
+                                txbNombre.Text = seleccionado.Nombre;
+                                txbDescripcion.Text = seleccionado.Descripcion;
+                                txbPrecio.Text = seleccionado.Precio.ToString();
+                                ddlCategoria.SelectedValue = seleccionado.Categoria.Id.ToString();
+                                ddlMarca.SelectedValue = seleccionado.Marca.Id.ToString();
+                                imgArticulo.Src = seleccionado.Imagen;
+            
+                                titulo.InnerText = "Modificar articulo";
+                            }
+                            else
+                                titulo.InnerText = "Nuevo articulo";
                         }
-                        else
-                            titulo.InnerText = "Nuevo articulo";
+                        catch (Exception ex)
+                        {
+                            Session.Add("error", ex.ToString());
+                            Response.Redirect("Error.aspx");
+                        }
                     }
             }
             else
@@ -61,6 +69,7 @@ namespace Vista
                 Session.Add("error", "No tiene permisos para acceder a esta pagina.");
                 Response.Redirect("Error.aspx");
             }
+            
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
@@ -99,7 +108,8 @@ namespace Vista
             }
             catch (Exception ex)
             {
-                throw ex;
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx");
             }
         }
 
@@ -134,17 +144,25 @@ namespace Vista
             }
             catch (Exception ex)
             {
-
-                throw ex;
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx");
             }
         }
 
         protected void btnEliminar_Click(object sender, EventArgs e)
         {
-            ArticuloNegocio articuloNegocio = new ArticuloNegocio();
-            articuloNegocio.eliminarArticulo(int.Parse((string)Session["idActual"]));
-            Session.Add("listaArticulos", articuloNegocio.listarArticulos());
-            Response.Redirect("GestionArticulos.aspx");
+            try
+            {
+                ArticuloNegocio articuloNegocio = new ArticuloNegocio();
+                articuloNegocio.eliminarArticulo(int.Parse((string)Session["idActual"]));
+                Session.Add("listaArticulos", articuloNegocio.listarArticulos());
+                Response.Redirect("GestionArticulos.aspx");
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx");
+            }
         }
     }
 }

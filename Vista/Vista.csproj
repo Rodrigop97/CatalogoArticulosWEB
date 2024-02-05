@@ -69,6 +69,7 @@
   <ItemGroup>
     <Content Include="Acceso.aspx" />
     <Content Include="Catalogo.aspx" />
+    <Content Include="Error.aspx" />
     <Content Include="PanelArticulos.aspx" />
     <Content Include="Perfil.aspx" />
     <Content Include="GestionArticulos.aspx" />
@@ -95,6 +96,13 @@
     </Compile>
     <Compile Include="Catalogo.aspx.designer.cs">
       <DependentUpon>Catalogo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Error.aspx.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Error.aspx.designer.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
     </Compile>
     <Compile Include="PanelArticulos.aspx.cs">
       <DependentUpon>PanelArticulos.aspx</DependentUpon>
