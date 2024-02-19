@@ -48,7 +48,8 @@
                 <div class="col">
                     <%--        Tabla articulos     --%>
                     <asp:GridView runat="server" ID="gvArticulos" CssClass="table" AutoGenerateColumns="false" AllowPaging="true"
-                        OnSelectedIndexChanged="gvArticulos_SelectedIndexChanged" PageSize="8" OnRowDeleting="gvArticulos_RowDeleting">
+                        OnSelectedIndexChanged="gvArticulos_SelectedIndexChanged" PageSize="5" OnRowDeleting="gvArticulos_RowDeleting"
+                        OnPageIndexChanging="gvArticulos_PageIndexChanging" >
                         <Columns>
                             <asp:BoundField DataField="Id" HeaderStyle-CssClass="d-none" ItemStyle-CssClass="d-none" />
                             <asp:BoundField DataField="Nombre" HeaderText="Nombre" />

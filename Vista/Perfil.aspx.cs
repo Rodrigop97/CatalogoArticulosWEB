@@ -60,10 +60,9 @@ namespace Vista
             }
             else
                 Response.Redirect("Acceso.aspx");
-            
         }
 
-        protected void iniciarSesion_Click(object sender, EventArgs e)
+        protected void iniciarSesion_Click(object sender, EventArgs e) // NO SE USA es la parte vieja del aspx..
         {
             
             UsuarioNegocio datosUsuario = new UsuarioNegocio();

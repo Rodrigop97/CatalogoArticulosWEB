@@ -15,13 +15,13 @@ namespace Vista
         protected void Page_Load(object sender, EventArgs e)
         {
             // PRUEBA DE PAGINA --------------------------->
-            //Usuario adimn = new Usuario();
-            //adimn.Nombre = "Rodrigo";
-            //adimn.Apellido = "Peralta";
-            //adimn.Email = "ad@ad.com";
-            //adimn.Contraseña = "1234";
-            //adimn.Admin = true;
-            //Session.Add("usuario", adimn);
+            Usuario adimn = new Usuario();
+            adimn.Nombre = "Rodrigo";
+            adimn.Apellido = "Peralta";
+            adimn.Email = "ad@ad.com";
+            adimn.Contraseña = "1234";
+            adimn.Admin = true;
+            Session.Add("usuario", adimn);
             //----------------------------------------------------------- > 
             if (Session["usuario"] != null && ((Usuario)Session["usuario"]).Admin)
             {
@@ -116,6 +116,12 @@ namespace Vista
             gvArticulos.DataSource = Filtro.busquedaRapida((List<Articulo>)Session["listaArticulos"], txbBusquedaRapida.Text);
             gvArticulos.DataBind();
         }
-        
+
+        protected void gvArticulos_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvArticulos.DataSource = Session["listaArticulos"];
+            gvArticulos.PageIndex = e.NewPageIndex;
+            gvArticulos.DataBind();
+        }
     }
 }

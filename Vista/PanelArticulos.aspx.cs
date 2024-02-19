@@ -40,7 +40,7 @@ namespace Vista
                             ddlCategoria.DataValueField = "Id";
                             ddlCategoria.DataTextField = "Descripcion";
                             ddlCategoria.DataBind();
-            
+
                             if (int.Parse(Request.QueryString["id"]) != -1)
                             {
                                 Articulo seleccionado = ((List<Articulo>)Session["listaArticulos"]).Find(x => x.Id == int.Parse(Request.QueryString["id"]));
@@ -51,8 +51,22 @@ namespace Vista
                                 ddlCategoria.SelectedValue = seleccionado.Categoria.Id.ToString();
                                 ddlMarca.SelectedValue = seleccionado.Marca.Id.ToString();
                                 imgArticulo.Src = seleccionado.Imagen;
-            
+
                                 titulo.InnerText = "Modificar articulo";
+                                if (Request.QueryString["eliminar"] != null)
+                                {
+                                    txbCodigo.Enabled = false;
+                                    txbNombre.Enabled = false;
+                                    txbDescripcion.Enabled = false;
+                                    txbPrecio.Enabled = false;
+                                    ddlCategoria.Enabled = false;
+                                    ddlMarca.Enabled = false;
+                                    sImg.Disabled = true;
+                                    imgInternet.Disabled = true;
+                                    imgLocal.Disabled = true;
+
+                                    titulo.InnerText = "Eliminar articulo";
+                                }
                             }
                             else
                                 titulo.InnerText = "Nuevo articulo";
@@ -156,7 +170,7 @@ namespace Vista
                 ArticuloNegocio articuloNegocio = new ArticuloNegocio();
                 articuloNegocio.eliminarArticulo(int.Parse((string)Session["idActual"]));
                 Session.Add("listaArticulos", articuloNegocio.listarArticulos());
-                Response.Redirect("GestionArticulos.aspx");
+                Response.Redirect("GestionArticulos.aspx", false);
             }
             catch (Exception ex)
             {

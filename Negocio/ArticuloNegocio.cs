@@ -33,7 +33,8 @@ namespace Negocio
                     articuloAux.Categoria.Id = (int)datos.Lector["idCategoria"];
                     articuloAux.Categoria.Descripcion = (string)datos.Lector["Categoria"];
 
-                    articuloAux.Imagen = (string)datos.Lector["ImagenUrl"];
+                    //articuloAux.Imagen = (string)datos.Lector["ImagenUrl"];
+                    articuloAux.Imagen = (Convert.IsDBNull(datos.Lector["ImagenUrl"]) ? string.Empty : (string)datos.Lector["ImagenUrl"]);
                     articuloAux.Precio = (Decimal)datos.Lector["Precio"];
 
                     lista.Add(articuloAux);

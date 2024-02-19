@@ -20,32 +20,32 @@ namespace Vista
             {
                 try
                 {
-                ArticuloNegocio datosArticulos = new ArticuloNegocio();
-                MarcaNegocio datosMarcas = new MarcaNegocio();
-                CategoriaNegocio datosCategorias = new CategoriaNegocio();
-                Session.Add("listaArticulos", datosArticulos.listarArticulos());
+                    ArticuloNegocio datosArticulos = new ArticuloNegocio();
+                    MarcaNegocio datosMarcas = new MarcaNegocio();
+                    CategoriaNegocio datosCategorias = new CategoriaNegocio();
+                    Session.Add("listaArticulos", datosArticulos.listarArticulos());
 
-                //repArticulos.DataSource = Session["listaArticulos"];
-                repArticulos.DataSource = Request.QueryString["favoritos"] == null ? 
-                    Session["listaArticulos"] // --> Si no se solicito ver a los favoritos 
-                    : datosArticulos.listarArticulos().Where
-                    (
-                        art => ((List<int>)Session["favoritos"]).Contains(art.Id) // --> Si se solicito ver a los favoritos, se filtran
-                    ).ToList();
-                repArticulos.DataBind();
+                    //repArticulos.DataSource = Session["listaArticulos"];
+                    repArticulos.DataSource = Request.QueryString["favoritos"] == null ? 
+                        Session["listaArticulos"] // --> Si no se solicito ver a los favoritos 
+                        : datosArticulos.listarArticulos().Where
+                        (
+                            art => ((List<int>)Session["favoritos"]).Contains(art.Id) // --> Si se solicito ver a los favoritos, se filtran
+                        ).ToList();
+                    repArticulos.DataBind();
 
-                cblMarca.DataSource = datosMarcas.listaMarcas();
-                cblMarca.DataValueField = "Id";
-                cblMarca.DataTextField = "Descripcion";
-                cblMarca.DataBind();
+                    cblMarca.DataSource = datosMarcas.listaMarcas();
+                    cblMarca.DataValueField = "Id";
+                    cblMarca.DataTextField = "Descripcion";
+                    cblMarca.DataBind();
 
-                List<Categoria> listaCategoria = datosCategorias.listaCategoria();
-                listaCategoria.Insert(0,new Categoria { Id = -1, Descripcion = "Todos" });
-                rblCategoria.DataSource = listaCategoria;
-                rblCategoria.DataValueField = "Id";
-                rblCategoria.DataTextField = "Descripcion";
-                rblCategoria.DataBind();
-                ((RadioButtonList)rblCategoria).Items[0].Selected = true;
+                    List<Categoria> listaCategoria = datosCategorias.listaCategoria();
+                    listaCategoria.Insert(0,new Categoria { Id = -1, Descripcion = "Todos" });
+                    rblCategoria.DataSource = listaCategoria;
+                    rblCategoria.DataValueField = "Id";
+                    rblCategoria.DataTextField = "Descripcion";
+                    rblCategoria.DataBind();
+                    ((RadioButtonList)rblCategoria).Items[0].Selected = true;
                 }
                 catch (Exception ex)
                 {
