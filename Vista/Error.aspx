@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <h1>Ha ocurrido un herror</h1>
+    <h1>Ha ocurrido un error</h1>
     <p runat="server" id="pError"></p>
     <hr />
 </asp:Content>

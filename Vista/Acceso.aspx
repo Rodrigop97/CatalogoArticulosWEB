@@ -18,12 +18,12 @@
                     <h3>Registrarse</h3><%} %>
                     <div class="mb-3">
                         <label for="txbEmail" class="form-label">Email</label>
-                        <asp:TextBox runat="server" type="email" ID="txbEmail" class="form-control" aria-describedby="emailHelp" />
+                        <asp:TextBox runat="server" type="email" ID="txbEmail" class="form-control" aria-describedby="emailHelp" required />
                         <div id="emailHelp" class="form-text"></div>
                     </div>
                     <div class="mb-3">
                         <label for="txbContraseña" class="form-label">Contraseña</label>
-                        <asp:TextBox runat="server" ID="txbContraseña" type="password" class="form-control" />
+                        <asp:TextBox runat="server" placeholder="Minimo de 4 caracteres"  ID="txbContraseña" type="password" class="form-control" required />
                     </div>
                     <% if (Request.QueryString["signin"] == null)
                         {

@@ -1,4 +1,5 @@
 ﻿using Dominio;
+using Helpers;
 using Negocio;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace Vista
         {
             try
             {
+                validarCampos();
                 UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
                 Usuario usuario = new Usuario();
                 usuario.Email = txbEmail.Text;
@@ -41,7 +43,8 @@ namespace Vista
             }
             catch (Exception ex)
             {
-                throw ex;
+                Session.Add("Error", ex.Message);
+                Response.Redirect("Error.aspx", false);
             }
         }
 
@@ -49,6 +52,7 @@ namespace Vista
         {
             try
             {
+                validarCampos();
                 UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
                 Usuario usuario = new Usuario();
                 usuario.Email = txbEmail.Text;
@@ -69,8 +73,19 @@ namespace Vista
             }
             catch (Exception ex)
             {
-                throw ex;
+                Session.Add("Error", ex.Message);
+                Response.Redirect("Error.aspx", false);
             }
+        }
+
+        private void validarCampos()
+        {
+            if (Validador.camposVacios(new string []{ txbEmail.Text, txbContraseña.Text }))
+                throw new Exception("Los campos Email y contraseña no deben estar vacios");
+            if (!Validador.contraseñaValida(txbContraseña.Text))
+                throw new Exception("La contraseña ingresada no es valida.\n La contraseña debe tener al menos 4 caracteres");
+            if (!Validador.formatoEmail(txbEmail.Text))
+                throw new Exception("El formato de Email no es correcto.");
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Dominio;
+using Helpers;
 using Negocio;
 using System;
 using System.Collections.Generic;
@@ -90,6 +91,7 @@ namespace Vista
         {
             try
             {
+                validarCampos();
                 Articulo seleccionado;
                 if (int.Parse((string)Session["idActual"]) == -1)
                     seleccionado = new Articulo();
@@ -122,7 +124,7 @@ namespace Vista
             }
             catch (Exception ex)
             {
-                Session.Add("error", ex.ToString());
+                Session.Add("error", ex.Message);
                 Response.Redirect("Error.aspx");
             }
         }
@@ -131,6 +133,7 @@ namespace Vista
         {
             try
             {
+                validarCampos();
                 Articulo nuevo = new Articulo();
                 nuevo.Codigo = txbCodigo.Text;
                 nuevo.Nombre = txbNombre.Text;
@@ -158,9 +161,15 @@ namespace Vista
             }
             catch (Exception ex)
             {
-                Session.Add("error", ex.ToString());
+                Session.Add("error", ex.Message);
                 Response.Redirect("Error.aspx");
             }
+        }
+
+        private void validarCampos() // Valida que los campos Codigo, Nombre, Descripcion y Precio no esten vacios
+        {
+            if (Validador.camposVacios( new string[] { txbCodigo.Text, txbNombre.Text, txbDescripcion.Text, txbPrecio.Text}))
+                throw new Exception("Los campos 'Codigo', 'Nombre', 'Descripcion 'y 'Precio' no deben estar vacios.");
         }
 
         protected void btnEliminar_Click(object sender, EventArgs e)
@@ -174,7 +183,7 @@ namespace Vista
             }
             catch (Exception ex)
             {
-                Session.Add("error", ex.ToString());
+                Session.Add("error", ex.Message);
                 Response.Redirect("Error.aspx");
             }
         }

@@ -18,15 +18,15 @@
                 <div class="col">
                     <div class="col-md-6 m-2">
                         <label for="txbCodigo" class="form-label">Codigo</label>
-                        <asp:TextBox runat="server" ID="txbCodigo" type="text" cssclass="form-control" />
+                        <asp:TextBox runat="server" ID="txbCodigo" type="text" cssclass="form-control" required />
                     </div>
                     <div class="col-md-6 m-2">
                         <label for="txbNombre" class="form-label">Nombre</label>
-                        <asp:TextBox runat="server" ID="txbNombre" type="text" cssclass="form-control" />
+                        <asp:TextBox runat="server" ID="txbNombre" type="text" cssclass="form-control" required />
                     </div>
                     <div class="col-12 m-2">
                         <label for="txbDescripcion" class="form-label">Descripcion</label>
-                        <asp:TextBox runat="server" id="txbDescripcion" type="text" cssclass="form-control" TextMode="MultiLine"/>
+                        <asp:TextBox runat="server" id="txbDescripcion" type="text" cssclass="form-control" required TextMode="MultiLine"/>
                     </div>
                     <div class="row">
                         <div class="col-4 m-2">
@@ -46,7 +46,7 @@
                     </div>
                     <div class="col-md-3 m-2">
                         <label for="txbPrecio" class="form-label">Precio</label>
-                        <asp:TextBox runat="server" ID="txbPrecio" TextMode="Number" class="form-control" />
+                        <asp:TextBox runat="server" ID="txbPrecio" TextMode="Number" class="form-control" required />
                     </div>
                 </div>
                 <%--        Imagen      --%>
