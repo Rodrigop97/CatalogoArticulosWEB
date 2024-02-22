@@ -15,13 +15,13 @@ namespace Vista
         protected void Page_Load(object sender, EventArgs e)
         {
             // PRUEBA DE PAGINA --------------------------->
-            //Usuario adimn = new Usuario();
-            //adimn.Nombre = "Rodrigo";
-            //adimn.Apellido = "Peralta";
-            //adimn.Email = "ad@ad.com";
-            //adimn.Contraseña = "1234";
-            //adimn.Admin = true;
-            //Session.Add("usuario", adimn);
+            Usuario adimn = new Usuario();
+            adimn.Nombre = "Rodrigo";
+            adimn.Apellido = "Peralta";
+            adimn.Email = "ad@ad.com";
+            adimn.Contraseña = "1234";
+            adimn.Admin = true;
+            Session.Add("usuario", adimn);
             //----------------------------------------------------------- > 
             if (Session["usuario"] != null && ((Usuario)Session["usuario"]).Admin)
             {
@@ -30,14 +30,18 @@ namespace Vista
                     try
                     {
                         ArticuloNegocio articuloNegocio = new ArticuloNegocio();
-                        CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
-                        MarcaNegocio marcaNegocio = new MarcaNegocio();
+                        //CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
+                        //MarcaNegocio marcaNegocio = new MarcaNegocio();
 
                         if (Session["listaArticulos"] == null)
                             Session.Add("listaArticulos", articuloNegocio.listarArticulos());
                         gvArticulos.DataSource = Session["listaArticulos"];
                         gvArticulos.DataBind();
-
+                        //--------------------->  Necesatio para el uso de DataTables
+                        gvArticulos.UseAccessibleHeader = true;
+                        gvArticulos.HeaderRow.TableSection = TableRowSection.TableHeader;
+                        //---
+                        /*
                         List<Categoria> listCategoria = categoriaNegocio.listaCategoria();
                         listCategoria.Insert(0, new Categoria { Id = -1 });
                         ddlCategoria.DataSource = listCategoria;
@@ -51,6 +55,7 @@ namespace Vista
                         ddlMarca.DataValueField = "Id";
                         ddlMarca.DataTextField = "Descripcion";
                         ddlMarca.DataBind();
+                        */
                     }
                     catch (Exception ex)
                     {
@@ -89,6 +94,9 @@ namespace Vista
             Response.Redirect("PanelArticulos.aspx?id=-1");
         }
 
+      /*  
+       *    Las funciones ya no se usan (Se cambio por DataTable)
+       *
         protected void Buscar_Click(object sender, EventArgs e)
         {
             // Tomo el ID de la categoria seleccionada
@@ -111,6 +119,7 @@ namespace Vista
                 );
             gvArticulos.DataBind();
         }
+
         protected void busquedaRapida_Click(object sender, EventArgs e)
         {
             gvArticulos.DataSource = Filtro.busquedaRapida((List<Articulo>)Session["listaArticulos"], txbBusquedaRapida.Text);
@@ -122,6 +131,6 @@ namespace Vista
             gvArticulos.DataSource = Session["listaArticulos"];
             gvArticulos.PageIndex = e.NewPageIndex;
             gvArticulos.DataBind();
-        }
+        }*/
     }
 }
