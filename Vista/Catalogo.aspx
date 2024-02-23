@@ -27,7 +27,7 @@
     </div>--%>
     <div class="row my-4">
         <%--    FILTROS   --%>
-        <div class="col-3 mt-3 z-2">
+        <div class="col-3 mt-3 z-2 h-50">
             <div class="sticky-top" style="top: 70px">
                 <h4>Filtros aplicados</h4>
                 <hr />
