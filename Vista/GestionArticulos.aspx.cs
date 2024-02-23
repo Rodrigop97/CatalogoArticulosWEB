@@ -14,7 +14,7 @@ namespace Vista
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // PRUEBA DE PAGINA --------------------------->
+            /* PRUEBA DE PAGINA --------------------------->
             Usuario adimn = new Usuario();
             adimn.Nombre = "Rodrigo";
             adimn.Apellido = "Peralta";
@@ -22,7 +22,7 @@ namespace Vista
             adimn.Contraseña = "1234";
             adimn.Admin = true;
             Session.Add("usuario", adimn);
-            //----------------------------------------------------------- > 
+            ----------------------------------------------------------- > */
             if (Session["usuario"] != null && ((Usuario)Session["usuario"]).Admin)
             {
                 if (!IsPostBack)

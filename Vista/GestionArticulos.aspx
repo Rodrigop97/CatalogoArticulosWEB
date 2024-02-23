@@ -85,9 +85,9 @@
                 language: {
                     "decimal": "",
                     "emptyTable": "Resultados no encontrados",
-                    "info": "Mostrar _START_ a _END_ de _TOTAL_ entradas",
+                    "info": "Mostrar de _START_ a _END_ de _TOTAL_ articulos en total",
                     "infoEmpty": "Mostrando 0 a 0 de 0 entradas",
-                    "infoFiltered": "(filtrado por _MAX_ total de entradas)",
+                    "infoFiltered": "(filtrado por _MAX_ entradas en total)",
                     "infoPostFix": "",
                     "thousands": ",",
                     "lengthMenu": "Mostrar _MENU_ entradas",

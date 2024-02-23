@@ -75,7 +75,7 @@ namespace Vista
                 string precioMax = txbPrecioMax.Text;
                 string precioMin = txbPrecioMin.Text;
 
-                repArticulos.DataSource = Filtro.filtroAvanzado
+                List<Articulo> filtrada = Filtro.filtroAvanzado
                     (
                     Request.QueryString["favoritos"] == null ?
                         ((List<Articulo>)Session["listaArticulos"])  // Si se solicito ver el catalogo paso los articulos de la sesion
@@ -88,6 +88,13 @@ namespace Vista
                     precioMax,
                     precioMin
                     );
+                // Una vez que se filtran los articulos se ordenan segun la opcion seleccionada.
+                if (((DropDownList)ddlOrdenar).SelectedIndex == 0)
+                    repArticulos.DataSource = filtrada;
+                else if (((DropDownList)ddlOrdenar).SelectedIndex == 1)
+                    repArticulos.DataSource = filtrada.OrderBy(x => x.Precio);
+                else
+                    repArticulos.DataSource = filtrada.OrderByDescending(x => x.Precio);
                 repArticulos.DataBind();
             }
             catch (Exception ex)
@@ -108,17 +115,6 @@ namespace Vista
                 Session.Add("error", ex.ToString());
                 Response.Redirect("Error.aspx");
             }
-        }
-
-        protected void ddlOrdenar_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (((DropDownList)sender).SelectedIndex == 0)
-                repArticulos.DataSource = ((List<Articulo>)Session["listaArticulos"]);
-            else if (((DropDownList)sender).SelectedIndex == 1)
-                repArticulos.DataSource = ((List<Articulo>)Session["listaArticulos"]).OrderBy(x => x.Precio);
-            else
-                repArticulos.DataSource = ((List<Articulo>)Session["listaArticulos"]).OrderByDescending(x => x.Precio);
-            repArticulos.DataBind();
         }
     }
 }

@@ -58,9 +58,6 @@
                         <li class="nav-item">
                             <a class="nav-link" runat="server" id="aCatalogo" href="Catalogo.aspx">Catalogo</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Contacto</a>
-                        </li>
                         <%--<li class="nav-item">
                             <a class="nav-link" href="#" >Mi cuenta</a>
                         </li>--%>

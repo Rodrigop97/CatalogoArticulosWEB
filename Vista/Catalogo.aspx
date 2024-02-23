@@ -27,7 +27,7 @@
     </div>--%>
     <div class="row my-4">
         <%--    FILTROS   --%>
-        <div class="col-3 mt-3">
+        <div class="col-3 mt-3 z-2">
             <div class="sticky-top" style="top: 70px">
                 <h4>Filtros aplicados</h4>
                 <hr />
@@ -36,7 +36,7 @@
                     <%--<label>Ordenar por:</label>--%>
                     <h6>Ordenar por: </h6>
                     <asp:DropDownList runat="server" ID="ddlOrdenar" AutoPostBack="true" 
-                        OnSelectedIndexChanged="ddlOrdenar_SelectedIndexChanged" CssClass="border-0" >
+                        OnSelectedIndexChanged="ejecutarFiltros" CssClass="border-0" >
                         <asp:ListItem Text="Mas relevante" />
                         <asp:ListItem Text="Menor precio" />
                         <asp:ListItem Text="Mayor precio" />
