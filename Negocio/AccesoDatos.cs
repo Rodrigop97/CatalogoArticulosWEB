@@ -29,6 +29,12 @@ namespace Negocio
             comando.CommandText = consulta;
             
         }
+
+        public void establecerProcedimiento(string procedimiento)
+        {
+            comando.CommandType = System.Data.CommandType.StoredProcedure;
+            comando.CommandText = procedimiento;
+        }
         public void establecerParametros(string parametro, object valor)
         {
             comando.Parameters.AddWithValue(parametro, valor);

@@ -15,7 +15,8 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.establecerConsulta("select ARTICULOS.Id, ARTICULOS.Codigo,ARTICULOS.Nombre,ARTICULOS.Descripcion,ARTICULOS.IdMarca,MARCAS.Descripcion as Marca,ARTICULOS.IdCategoria,CATEGORIAS.Descripcion as Categoria,ARTICULOS.ImagenUrl,ARTICULOS.Precio from ARTICULOS join CATEGORIAS on (CATEGORIAS.Id = ARTICULOS.IdCategoria) join MARCAS on (MARCAS.Id = ARTICULOS.IdMarca)");
+                //datos.establecerConsulta("select ARTICULOS.Id, ARTICULOS.Codigo,ARTICULOS.Nombre,ARTICULOS.Descripcion,ARTICULOS.IdMarca,MARCAS.Descripcion as Marca,ARTICULOS.IdCategoria,CATEGORIAS.Descripcion as Categoria,ARTICULOS.ImagenUrl,ARTICULOS.Precio from ARTICULOS join CATEGORIAS on (CATEGORIAS.Id = ARTICULOS.IdCategoria) join MARCAS on (MARCAS.Id = ARTICULOS.IdMarca)");
+                datos.establecerProcedimiento("listarPorRelevancia");
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
@@ -49,7 +50,6 @@ namespace Negocio
             {
                 datos.cerrarConexion();
             }
-
         }
         public void eliminarArticulo(int id)
         {
