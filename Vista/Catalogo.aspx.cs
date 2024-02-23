@@ -109,5 +109,16 @@ namespace Vista
                 Response.Redirect("Error.aspx");
             }
         }
+
+        protected void ddlOrdenar_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (((DropDownList)sender).SelectedIndex == 0)
+                repArticulos.DataSource = ((List<Articulo>)Session["listaArticulos"]);
+            else if (((DropDownList)sender).SelectedIndex == 1)
+                repArticulos.DataSource = ((List<Articulo>)Session["listaArticulos"]).OrderBy(x => x.Precio);
+            else
+                repArticulos.DataSource = ((List<Articulo>)Session["listaArticulos"]).OrderByDescending(x => x.Precio);
+            repArticulos.DataBind();
+        }
     }
 }

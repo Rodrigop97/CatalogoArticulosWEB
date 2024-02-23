@@ -31,9 +31,20 @@
             <div class="sticky-top" style="top: 70px">
                 <h4>Filtros aplicados</h4>
                 <hr />
+                <%--Ordenar por --%>
+                <div class="d-flex align-items-baseline">
+                    <%--<label>Ordenar por:</label>--%>
+                    <h6>Ordenar por: </h6>
+                    <asp:DropDownList runat="server" ID="ddlOrdenar" AutoPostBack="true" 
+                        OnSelectedIndexChanged="ddlOrdenar_SelectedIndexChanged" CssClass="border-0" >
+                        <asp:ListItem Text="Mas relevante" />
+                        <asp:ListItem Text="Menor precio" />
+                        <asp:ListItem Text="Mayor precio" />
+                    </asp:DropDownList>
+                </div>
                 <%--    CATEGORIA   --%>
                 <div class="m-4">
-                    <h4 class="">Categoria</h4>
+                    <h5 class="">Categoria</h5>
                     <ul class="list-group-item">
                         <asp:RadioButtonList runat="server" ID="rblCategoria" OnSelectedIndexChanged="ejecutarFiltros" AutoPostBack="true">
                         </asp:RadioButtonList>
@@ -41,7 +52,7 @@
                 </div>
                 <%--    MARCA   --%>
                 <div class="m-4">
-                    <h4 class="">Marca</h4>
+                    <h5 class="">Marca</h5>
                     <ul class="list-group-item">
                         <asp:CheckBoxList runat="server" ID="cblMarca" AutoPostBack="true" OnSelectedIndexChanged="ejecutarFiltros">
                         </asp:CheckBoxList>
@@ -61,7 +72,7 @@
                 </div>
                 <%--    PRECIO --%>
                 <div class="m-4">
-                    <h4 class="">Precio</h4>
+                    <h5 class="">Precio</h5>
                     <div class="row g-3">
                         <div class="col">
                             <asp:TextBox runat="server" type="Number" class="form-control" placeholder="Min" ID="txbPrecioMin" />
